@@ -3,1038 +3,287 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>מחשבון קלוריות ומאקרונוטריינטים מתקדם</title>
+    <title>מערכת מחשבון קלוריות ומאקרונוטריינטים למאמנים</title>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
-    
-    <style>
-        /* הגדרות גלובליות וצבעי מותג חדשים */
-        :root {
-            --dark-bg: #1c1e21;
-            --card-bg: #2a2e35;
-            --text-light: #ecf0f1;
-            --primary-gradient: linear-gradient(135deg, #00c6ff, #0072ff);
-            --secondary-gradient: linear-gradient(135deg, #ff6a00, #ee0979);
-            --shadow-dark: 0 10px 30px rgba(0, 0, 0, 0.5);
-            --border-radius: 16px;
-        }
-
-        body {
-            font-family: 'Rubik', sans-serif;
-            background-color: var(--dark-bg);
-            color: var(--text-light);
-            direction: rtl;
-            text-align: right;
-            padding: 40px 20px;
-            line-height: 1.6;
-            transition: background-color 0.5s;
-        }
-
-        .container {
-            max-width: 950px;
-            margin: 0 auto;
-            background-color: var(--card-bg);
-            padding: 50px;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow-dark);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(5px);
-        }
-
-        h1 {
-            font-size: 3em;
-            font-weight: 900;
-            text-align: center;
-            margin-bottom: 5px;
-            background-image: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0 0 5px rgba(0, 198, 255, 0.4);
-        }
-        
-        .container > p {
-            text-align: center;
-            margin-bottom: 40px;
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 1.1em;
-        }
-
-        h2, h3 {
-            color: var(--text-light);
-            font-weight: 700;
-            font-size: 1.8em;
-            padding-bottom: 15px;
-            margin-top: 40px;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-        }
-        
-        /* קלט */
-        label {
-            display: block;
-            color: var(--text-light);
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        input[type="number"], select {
-            width: 100%;
-            padding: 14px 18px;
-            border: none;
-            border-radius: 10px;
-            background-color: #3b3f46;
-            color: var(--text-light);
-            box-shadow: inset 5px 5px 10px #202327, inset -5px -5px 10px #343940;
-            box-sizing: border-box;
-            font-size: 16px;
-            transition: all 0.3s ease;
-            appearance: none;
-        }
-
-        input[type="number"]:focus, select:focus {
-            background-color: #3f444c;
-            outline: none;
-            box-shadow: 0 0 0 2px #00c6ff, inset 2px 2px 5px #202327, inset -2px -2px 5px #343940;
-        }
-        
-        /* כפתורים */
-        .btn {
-            padding: 14px 20px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            margin-left: 15px;
-            letter-spacing: 0.5px;
-        }
-
-        .btn-primary {
-            background: var(--primary-gradient);
-            color: var(--text-light);
-            box-shadow: 0 5px 15px rgba(0, 114, 255, 0.5);
-        }
-
-        .btn-secondary {
-            background: var(--secondary-gradient);
-            color: var(--text-light);
-            box-shadow: 0 5px 15px rgba(238, 9, 121, 0.5);
-        }
-        
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-            opacity: 0.9;
-        }
-        
-        /* תוצאות */
-        #results {
-            margin-top: 50px;
-            padding: 40px;
-            border-radius: var(--border-radius);
-            background-color: #31363d;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-        }
-        
-        .result-item {
-            margin-bottom: 20px;
-            padding: 15px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .result-label {
-            font-weight: 500;
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 1.1em;
-        }
-
-        .result-value {
-            font-weight: 900;
-            font-size: 1.5em;
-            background-image: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            color: transparent;
-        }
-
-        #target-calories {
-            font-size: 3em;
-            font-weight: 900;
-            background-image: var(--secondary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0 0 10px rgba(238, 9, 121, 0.6);
-        }
-
-        /* BMI Colors - התיקון שהופך את הצבע לגלוי */
-        .bmi-normal { background-image: none; color: #2ecc71 !important; } /* ירוק */
-        .bmi-overweight { background-image: none; color: #f39c12 !important; } /* כתום */
-        .bmi-obese { background-image: none; color: #e74c3c !important; } /* אדום */
-        .bmi-underweight { background-image: none; color: #00c6ff !important; } /* כחול בהיר */ 
-
-        .bmi-normal, .bmi-overweight, .bmi-obese, .bmi-underweight {
-            /* מבטל את הגרדיאנט הראשי ומבטיח שהצבע יהיה קבוע */
-            background-image: none !important;
-            -webkit-background-clip: initial !important; 
-            -webkit-text-fill-color: initial !important; 
-            color: inherit !important; 
-        }
-
-        /* כדי לוודא שאלמנט ה-BMI תמיד מקבל צבע כלשהו גם אם אין קלאס */
-        #bmi-result { 
-            background-image: none !important; 
-            -webkit-background-clip: initial !important; 
-            -webkit-text-fill-color: initial !important; 
-        }
-
-        
-        /* טבלת מאקרו */
-        .macro-table {
-            width: 100%;
-            border-collapse: separate; 
-            border-spacing: 0;
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            margin-top: 25px;
-            text-align: center;
-        }
-
-        .macro-table th, .macro-table td {
-            padding: 15px 10px;
-            border: none;
-        }
-        
-        .macro-table th {
-            background-color: #202327;
-            color: #00c6ff;
-            font-weight: 700;
-            font-size: 1.1em;
-        }
-        
-        .macro-table tr:nth-child(even) { background-color: #3b3f46; }
-        .macro-table tr:nth-child(odd) { background-color: #31363d; }
-        .macro-table tr:hover { background-color: #434851; }
-
-        .macro-table td:nth-child(3) { color: #2ecc71; font-weight: bold; }
-        .macro-table td:nth-child(4) { color: #f1c40f; font-weight: bold; }
-        .macro-table td:nth-child(5) { color: #3498db; font-weight: bold; }
-        
-        .macro-table tr:last-child {
-            font-size: 0.9em;
-            font-style: italic;
-        }
-
-
-        /* הודעות */
-        .message {
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 25px;
-            font-weight: bold;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .error { background-color: #3c1e20; color: #e74c3c; border: 1px solid #e74c3c; }
-        .warning { background-color: #3c341e; color: #f39c12; border: 1px solid #f39c12; }
-        
-        /* מודאלים */
-        .modal-container {
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .modal-content {
-            background-color: #31363d;
-            color: var(--text-light);
-            margin: auto;
-            padding: 30px;
-            width: 90%;
-            max-width: 600px;
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: var(--shadow-dark);
-            text-align: right;
-        }
-        
-        /* ודא שכל כפתורי הסגירה פועלים */
-        .close-btn { 
-            color: rgba(255, 255, 255, 0.6); 
-            float: left; 
-            font-size: 28px; 
-            font-weight: bold; 
-            cursor: pointer;
-        }
-        .close-btn:hover, .close-btn:focus { color: #00c6ff; text-decoration: none; }
-
-        .input-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-        }
-        
-        .input-with-button {
-            display: flex;
-            align-items: flex-end;
-            gap: 10px;
-        }
-        
-        .input-with-button > input {
-            flex-grow: 1;
-        }
-
-        .hidden { display: none !important; }
-
-    </style>
+    <link rel="stylesheet" href="style.css"> 
 </head>
 <body>
 
-<div class="container">
-    <h1>מחשבון קלוריות ומאקרונוטריינטים</h1>
-    <p>הערכה של צריכת הקלוריות היומית הכוללת (TDEE) וחלוקת המאקרו לפי יעדים.</p>
+    <div class="main-container">
+        <h1>מערכת ניהול תזונה למאמנים</h1>
 
-    <div id="error-message" class="message error hidden">
-        אנא מלא את כל השדות המסומנים (*), וודא שהערכים חיוביים.
-    </div>
-    <div id="age-warning-message" class="message warning hidden">
-        <span id="age-warning-text"></span>
-    </div>
-    <div id="calorie-warning-message" class="message warning hidden">
-        <span id="calorie-warning-text"></span>
-    </div>
+        <div class="card client-management">
+            <h2>ניהול פרופיל לקוח</h2>
+            <div class="form-group">
+                <label for="client-name">שם לקוח:</label>
+                <input type="text" id="client-name" value="" placeholder="הזן שם לקוח חדש">
+            </div>
+            <div class="action-buttons">
+                <button id="save-profile-btn" class="action-btn primary-btn">שמור פרופיל</button>
+                <button id="load-profile-btn" class="action-btn secondary-btn">טען פרופיל</button>
+                <button id="new-client-btn" class="action-btn secondary-btn">לקוח חדש</button>
+            </div>
+            <div class="form-group hidden" id="client-list-container">
+                <select id="client-list"></select>
+            </div>
+        </div>
 
-    <form id="calorie-form">
-        <h2>נתוני בסיס</h2>
-        <div class="input-grid">
-            
-            <div class="form-group">
-                <label for="gender">* מין:</label>
-                <select id="gender" required>
-                    <option value="">בחר...</option>
-                    <option value="male">זכר</option>
-                    <option value="female">נקבה</option>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label for="age">* גיל (שנים):</label>
-                <input type="number" id="age" min="16" step="1" required> 
-            </div>
-            
-            <div class="form-group">
-                <label for="weight">* משקל (ק"ג):</label>
-                <input type="number" id="weight" min="1" step="0.1" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="height">* גובה (ס"מ):</label>
-                <input type="number" id="height" min="1" step="1" required>
-            </div>
-
-            <div class="form-group">
-                <label for="body-fat-percent">אחוזי שומן (לא חובה):</label>
-                <div class="input-with-button">
-                    <input type="number" id="body-fat-percent" min="1" max="50" step="0.1">
-                    <button type="button" id="clear-bf-btn" class="btn btn-secondary" style="font-size: 14px; padding: 14px 10px;">נקה</button>
+        <div class="card">
+            <form id="calorie-form">
+                <div class="form-group">
+                    <label for="gender">מגדר:</label>
+                    <select id="gender" required>
+                        <option value="male">זכר</option>
+                        <option value="female">נקבה</option>
+                    </select>
                 </div>
-                <small id="bf-note">אם מוזן, משתמש בנוסחת Katch-McArdle (מדויקת יותר).</small>
-            </div>
+
+                <div class="form-group">
+                    <label for="weight">משקל (ק"ג):</label>
+                    <input type="number" id="weight" step="0.1" min="1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="height">גובה (ס"מ):</label>
+                    <input type="number" id="height" min="1" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="age">גיל (שנים):</label>
+                    <input type="number" id="age" min="1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="body-fat">אחוז שומן (אופציונלי):</label>
+                    <input type="number" id="body-fat" step="0.1" min="1" max="60" placeholder="להזנת Katch-McArdle">
+                </div>
+
+                <div class="form-group">
+                    <label for="activity">רמת פעילות:</label>
+                    <select id="activity" required>
+                        <option value="sedentary">ישיבתי (1.2) - משרד, מעט תנועה</option>
+                        <option value="light">קל (1.375) - אימון קל 1-3 בשבוע</option>
+                        <option value="moderate">בינוני (1.55) - אימון בינוני 3-5 בשבוע</option>
+                        <option value="high">גבוה (1.725) - אימון אינטנסיבי 6-7 בשבוע</option>
+                        <option value="extreme">קיצוני (1.9) - אימון כפול / עבודה פיזית</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="goal-type">יעד קלורי:</label>
+                    <select id="goal-type" required>
+                        <option value="deficit_light">חיטוב קל (-250 קלוריות)</option>
+                        <option value="deficit_medium">חיטוב בינוני (-500 קלוריות)</option>
+                        <option value="deficit_high">חיטוב אגרסיבי (-750 קלוריות)</option>
+                        <option value="maintenance">משקל יעד (אחזקה)</option>
+                        <option value="surplus_medium">מסה בינונית (+250 קלוריות)</option>
+                        <option value="surplus_high">מסה גבוהה (+500 קלוריות)</option>
+                        <option value="custom">הזנת יעד קלורי מדויק</option> 
+                    </select>
+                </div>
+
+                <div class="form-group hidden" id="custom-goal-container">
+                    <label for="custom-goal">יעד קלורי מדויק (סה"כ):</label>
+                    <input type="number" id="custom-goal" placeholder="הזן קלוריות יומיות">
+                </div>
+
+
+                <div class="form-group">
+                    <label for="macro-split">חלוקת מאקרו:</label>
+                    <select id="macro-split" required>
+                        <option value="default_p">ברירת מחדל (35% חלבון / 25% שומן / 40% פחמימה)</option>
+                        <option value="keto">קיטו / דל פחמימה (30% חלבון / 60% שומן / 10% פחמימה)</option>
+                        <option value="custom_p">הזנת אחוזים מותאמים אישית</option>
+                        <option value="custom_gpk">חלוקה מקצועית (חלבון/שומן לפי ק"ג)</option> </select>
+                </div>
+                
+                <div class="form-group custom-macro-group hidden" id="custom-macro-container">
+                    <label>אחוזי מאקרו מותאמים אישית (סך הכל 100%):</label>
+                    <div class="macro-custom-inputs">
+                        <input type="number" id="custom-p-percent" step="1" min="1" max="100" placeholder="חלבון (%)" value="35">
+                        <input type="number" id="custom-f-percent" step="1" min="1" max="100" placeholder="שומן (%)" value="25">
+                        <input type="number" id="custom-c-percent" step="1" min="1" max="100" placeholder="פחמימה (%)" value="40">
+                    </div>
+                </div>
+
+                 <div class="form-group custom-macro-group hidden" id="custom-gpk-container">
+                    <label>חלוקה מקצועית (גרם לק"ג):</label>
+                    <div class="macro-custom-inputs">
+                        <input type="number" id="custom-p-gpk" step="0.1" min="0.5" max="5" placeholder="חלבון (גרם/קג)" value="2.0">
+                        <input type="number" id="custom-f-gpk" step="0.1" min="0.3" max="2" placeholder="שומן (גרם/קג)" value="0.8">
+                    </div>
+                    <p class="explanation-text">פחמימה תחושב אוטומטית כהשלמה קלורית.</p>
+                </div>
+
+
+                <div id="error-message" class="message error hidden"></div>
+                <div id="warning-message" class="message warning hidden">
+                    <p id="warning-text"></p>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" id="calculate-btn" class="primary-btn">חשב קלוריות ומאקרו</button>
+                    <button type="button" id="reset-btn" class="secondary-btn">איפוס</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="results" class="card hidden">
+            <h2>תוצאות החישוב</h2>
             
-        </div>
-
-        <h2>פעילות ויעד</h2>
-        <div class="input-grid">
-            
-            <div class="form-group">
-                <label for="activity">* רמת פעילות:</label>
-                <select id="activity" required>
-                    <option value="">בחר...</option>
-                    <option value="sedentary">יושבני (משרד/ללא אימון)</option>
-                    <option value="light">קל (אימון קל 1-3 בשבוע)</option>
-                    <option value="moderate">בינוני (אימון בינוני 3-5 בשבוע)</option>
-                    <option value="high">גבוה (אימון קשה 6-7 בשבוע)</option>
-                    <option value="extreme">קיצוני (אימון כפול/מאומץ)</option>
-                </select>
-                <button type="button" id="open-modal-btn" class="btn btn-secondary" style="margin-top: 5px;">מהי רמת הפעילות שלי?</button>
-            </div>
-            
-            <div class="form-group">
-                <label for="goal">* יעד קלורי:</label>
-                <select id="goal" required>
-                    <option value="">בחר...</option>
-                    <option value="maintain">תחזוקה (שמירה על משקל)</option>
-                    <option value="mild_cut">חיטוב קל (~250 קלוריות גירעון)</option>
-                    <option value="moderate_cut">חיטוב בינוני (~500 קלוריות גירעון)</option>
-                    <option value="mild_bulk">מסה קלה (~250 קלוריות עודף)</option>
-                    <option value="moderate_bulk">מסה בינונית (~500 קלוריות עודף)</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="macro-method">שיטת המאקרו:</label>
-                <select id="macro-method">
-                    <option value="grams_per_kg">מבוסס משקל (2.0 חלבון / 0.8 שומן / פחמימה משלימה)</option>
-                    <option value="percentage">אחוז קלורי (35% חלבון / 25% שומן / 40% פחמימה)</option>
-                </select>
-                <small>המאקרו משפיע רק על החלוקה, לא על הקלוריות.</small>
-            </div>
-        </div>
-
-        <div class="form-group" style="margin-top: 25px;">
-            <button type="submit" id="calculate-btn" class="btn btn-primary">חשב קלוריות</button>
-            <button type="button" id="reset-btn" class="btn btn-secondary hidden">אפס נתונים</button>
-            <button type="button" id="share-btn" class="btn btn-secondary">שמירה ושיתוף</button>
-            <button type="button" id="open-about-modal-btn" class="btn btn-secondary">אודות</button> 
-        </div>
-    </form>
-
-    <div id="results" class="hidden">
-        <h2>📊 סיכום התוצאות</h2>
-        
-        <div class="result-item">
-            <span class="result-label">מדד מסת הגוף (BMI):</span>
-            <span id="bmi-result" class="result-value">--</span> 
-        </div>
-        
-        <div class="result-item">
-            <span class="result-label">צריכת קלוריות לתחזוקה (TDEE):</span>
-            <span id="tdee-result" class="result-value">--</span>
-        </div>
-        
-        <h3>יעד קלורי יומי: <span class="result-value" id="target-calories">--</span> קלוריות</h3>
-        
-        <hr>
-        
-        <h3>פירוט המאקרונוטריינטים (לפי השיטה שנבחרה)</h3>
-
-        <h4>תחזוקה (Maintain)</h4>
-        <table class="macro-table">
-            <thead>
+            <table class="results-table">
                 <tr>
-                    <th></th>
-                    <th>קלוריות יומיות</th>
-                    <th>חלבון</th>
-                    <th>שומן</th>
-                    <th>פחמימה</th>
+                    <th>מדד</th>
+                    <th>חישוב Mifflin-St Jeor</th>
+                    <th id="katch-header">חישוב Katch-McArdle</th>
                 </tr>
-            </thead>
-            <tbody>
                 <tr>
-                    <td style="font-weight: bold;">כמות (גרם)</td>
-                    <td id="m-result">--</td>
+                    <td>BMI</td>
+                    <td colspan="2" id="bmi-result">--</td>
+                </tr>
+                <tr>
+                    <td>**יעד שבועי משוער**</td>
+                    <td colspan="2" id="weekly-goal-result" class="highlight-result">--</td>
+                </tr>
+                <tr>
+                    <td>BMR</td>
+                    <td id="m-bmr-result">--</td>
+                    <td id="k-bmr-result">--</td>
+                </tr>
+                <tr>
+                    <td>TDEE (קלוריות תחזוקה)</td>
+                    <td id="m-tdee-result">--</td>
+                    <td id="k-tdee-result">--</td>
+                </tr>
+                <tr>
+                    <td>**יעד קלורי יומי**</td>
+                    <td id="m-result" class="highlight-result">--</td>
+                    <td id="k-result" class="highlight-result">--</td>
+                </tr>
+            </table>
+            
+            <div id="bmi-recommendation" class="message hidden" style="margin-top: 20px;"></div>
+
+            <h3>חלוקת מאקרונוטריינטים מומלצת (לפי יעד קלורי)</h3>
+            <p class="explanation-text">החישוב מתבסס על יעד הקלוריות מ-Mifflin-St Jeor (או Katch-McArdle אם נבחר).</p>
+            <table class="macro-table">
+                <tr>
+                    <th>נוסחה</th>
+                    <th>סך קלוריות</th>
+                    <th>חלבון (גרם)</th>
+                    <th>שומן (גרם)</th>
+                    <th>פחמימה (גרם)</th>
+                    <th>חלבון (%)</th>
+                    <th>שומן (%)</th>
+                    <th>פחמימה (%)</th>
+                </tr>
+                <tr>
+                    <td>Mifflin</td>
+                    <td id="m-result-macro">--</td>
                     <td id="m_p_g">--</td>
                     <td id="m_f_g">--</td>
                     <td id="m_c_g">--</td>
-                </tr>
-                 <tr>
-                    <td style="font-weight: bold;">קלוריות (ק"ל)</td>
-                    <td>--</td>
-                    <td id="m_p_cal">--</td>
-                    <td id="m_f_cal">--</td>
-                    <td id="m_c_cal">--</td>
-                </tr>
-                 <tr>
-                    <td style="font-weight: bold;">חלוקה באחוזים</td>
-                    <td>100%</td>
                     <td id="m_p_p">--</td>
                     <td id="m_f_p">--</td>
                     <td id="m_c_p">--</td>
                 </tr>
-            </tbody>
-        </table>
+                <tr id="katch-row">
+                    <td>Katch</td>
+                    <td id="k-result-macro">--</td>
+                    <td id="k_p_g">--</td>
+                    <td id="k_f_g">--</td>
+                    <td id="k_c_g">--</td>
+                    <td id="k_p_p">--</td>
+                    <td id="k_f_p">--</td>
+                    <td id="k_c_p">--</td>
+                </tr>
+            </table>
 
-        <h4>חיטוב בינוני (~500 קלוריות גירעון)</h4>
-        <table class="macro-table">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>קלוריות יומיות</th>
-                    <th>חלבון</th>
-                    <th>שומן</th>
-                    <th>פחמימה</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td style="font-weight: bold;">כמות (גרם)</td>
-                    <td id="c-result">--</td>
-                    <td id="c_p_g">--</td>
-                    <td id="c_f_g">--</td>
-                    <td id="c_c_g">--</td>
-                </tr>
-                <tr>
-                    <td style="font-weight: bold;">קלוריות (ק"ל)</td>
-                    <td>--</td>
-                    <td id="c_p_cal">--</td>
-                    <td id="c_f_cal">--</td>
-                    <td id="c_c_cal">--</td>
-                </tr>
-                 <tr>
-                    <td style="font-weight: bold;">חלוקה באחוזים</td>
-                    <td>100%</td>
-                    <td id="c_p_p">--</td>
-                    <td id="c_f_p">--</td>
-                    <td id="c_c_p">--</td>
-                </tr>
-            </tbody>
-        </table>
+            <div class="form-actions result-actions">
+                <button id="save-calculation-btn" class="action-btn primary-btn">שמור חישוב להיסטוריה</button>
+                <button id="generate-report-btn" class="action-btn secondary-btn">יצירת דוח מקצועי</button>
+                <button id="open-history-btn" class="action-btn secondary-btn">צפה בהיסטוריה</button>
+            </div>
+        </div>
         
-        <h4>מסה בינונית (~500 קלוריות עודף)</h4>
-        <table class="macro-table">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>קלוריות יומיות</th>
-                    <th>חלבון</th>
-                    <th>שומן</th>
-                    <th>פחמימה</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td style="font-weight: bold;">כמות (גרם)</td>
-                    <td id="b-result">--</td>
-                    <td id="b_p_g">--</td>
-                    <td id="b_f_g">--</td>
-                    <td id="b_c_g">--</td>
-                </tr>
-                <tr>
-                    <td style="font-weight: bold;">קלוריות (ק"ל)</td>
-                    <td>--</td>
-                    <td id="b_p_cal">--</td>
-                    <td id="b_f_cal">--</td>
-                    <td id="b_c_cal">--</td>
-                </tr>
-                 <tr>
-                    <td style="font-weight: bold;">חלוקה באחוזים</td>
-                    <td>100%</td>
-                    <td id="b_p_p">--</td>
-                    <td id="b_f_p">--</td>
-                    <td id="b_c_p">--</td>
-                </tr>
-            </tbody>
-        </table>
+        <div id="history-section" class="card hidden">
+            <h2>היסטוריית חישובים עבור <span id="history-client-name">--</span></h2>
+            <p id="history-message" class="explanation-text">עדיין אין חישובים שמורים עבור לקוח זה.</p>
+            <table class="history-table hidden">
+                <thead>
+                    <tr>
+                        <th>תאריך</th>
+                        <th>משקל (ק"ג)</th>
+                        <th>אחוזי שומן (%)</th>
+                        <th>TDEE (קלוריות)</th>
+                        <th>יעד קלורי (קלוריות)</th>
+                        <th>פירוט מאקרו (P/F/C)</th>
+                    </tr>
+                </thead>
+                <tbody id="history-table-body">
+                    </tbody>
+            </table>
+        </div>
+
+
+    </div>
+    
+    <footer id="footer-credits">
+        <p>זכויות יוצרים-GS-BM-איננו יועץ תזונה או מחליף.יש להשתמש בשיקול רב</p>
+        <div class="footer-links">
+            <button id="open-about-modal-btn" class="action-btn secondary-btn small-btn">אודות ונוסחאות</button>
+        </div>
+    </footer>
+
+    <div id="about-modal-container" class="modal-container hidden">
+        <div class="modal-content">
+            <span class="close-btn" id="about-close-btn">&times;</span>
+            <div id="about-content"></div>
+            <div class="action-buttons" style="margin-top: 20px;">
+                <button id="activity-info-btn" class="action-btn primary-btn">צפה במקדמי פעילות</button>
+            </div>
+        </div>
     </div>
 
-    <p style="text-align: center; margin-top: 50px; font-size: 0.85em; color: rgba(255, 255, 255, 0.4);">
-        זכויות יוצרים © 2025. כל הזכויות שמורות.
-    </p>
-
-</div> 
-
-<div id="modal-container" class="modal-container hidden">
-    <div class="modal-content">
-        <span class="close-btn activity-close">&times;</span> 
-        <h3>הגדרת רמת פעילות</h3>
-        <p>בחר את רמת הפעילות המתאימה ביותר לשגרה היומית שלך:</p>
-        <ul>
-            <li>**יושבני (Sedentary):** מעט עד ללא פעילות גופנית. עבודת משרד, רוב הזמן בישיבה.</li>
-            <li>**קל (Light):** אימון קל 1-3 ימים בשבוע. הליכה קלה, עמידה ממושכת.</li>
-            <li>**בינוני (Moderate):** אימון בעצימות בינונית 3-5 ימים בשבוע. ריצה קלה, אימוני כוח.</li>
-            <li>**גבוה (High):** אימון בעצימות גבוהה 6-7 ימים בשבוע. אימונים קשים, עבודה פיזית.</li>
-            <li>**קיצוני (Extreme):** אימונים יומיים, כפולים, או עבודה פיזית מאומצת מאוד.</li>
-        </ul>
-        <p><small>זוהי הערכה. אם אינך בטוח, התחל עם "בינוני" והתאם בהמשך.</small></p>
+    <div id="modal-container" class="modal-container hidden">
+        <div class="modal-content">
+            <span class="close-btn" id="activity-close-btn">&times;</span>
+            <div id="activity-factors">
+                <h2>מקדמי פעילות (Activity Multipliers)</h2>
+                <p>להלן מקדמי הפעילות המשמשים לחישוב ה-TDEE:</p>
+                <ul>
+                    <li>**ישיבתי (Sedentary):** 1.2</li>
+                    <li>**קל (Light):** 1.375</li>
+                    <li>**בינוני (Moderate):** 1.55</li>
+                    <li>**גבוה (High):** 1.725</li>
+                    <li>**קיצוני (Extreme):** 1.9</li>
+                </ul>
+                <p class="explanation-text">כמאמן, אתה יכול לבחור מקדם קרוב יותר למציאות אם אתה חושב שהלקוח ממעיט או מגזים ברמת הפעילות שלו.</p>
+            </div>
+        </div>
     </div>
-</div>
-
-<div id="about-modal-container" class="modal-container hidden">
-    <div class="modal-content">
-        <span class="close-btn" id="about-close-btn">&times;</span>
-        <h3>אודות המחשבון</h3>
-        <p>מחשבון זה פותח ככלי חינוכי ואומדני להערכת צריכת קלוריות ומאקרונוטריינטים יומית.</p>
-        <h4>שיטות חישוב:</h4>
-        <ul>
-            <li>**BMR (קצב חילוף חומרים בסיסי):** משתמש בנוסחת **מיפלין-סן ג'אור** (Mifflin-St Jeor), שהיא הנחשבת למדויקת ביותר לשימוש כללי. אם מוזן אחוז שומן, המחשבון עובר לשיטת **קאץ'-מקארדל** (Katch-McArdle) המדויקת יותר למתאמנים.</li>
-            <li>**TDEE (סה"כ הוצאת אנרגיה יומית):** ה-BMR מוכפל במקדם פעילות.</li>
-            <li>**יעדים קלוריים:** מתבססים על גירעון/עודף של 0.25 ק"ג או 0.5 ק"ג בשבוע, כאשר כל ק"ג שווה ערך לכ-7700 קלוריות.</li>
-        </ul>
-        <p><strong>חשוב:</strong> נתונים אלו הם המלצות כלליות ואינם מהווים ייעוץ רפואי או תזונתי. יש להתייעץ תמיד עם איש מקצוע לפני שינוי משמעותי בתזונה.</p>
-        <p dir="ltr">Version 1.7 - Final Fix for BMI Color/Visibility</p>
+    
+    <div id="share-modal-container" class="modal-container hidden">
+        <div class="modal-content">
+            <span class="close-btn" id="share-close-btn">&times;</span>
+            <h2>דוח תזונה מקצועי</h2>
+            <div id="report-output">
+                </div>
+            <div class="form-actions" style="margin-top: 20px;">
+                <button id="print-report-btn" class="action-btn primary-btn">הדפסת דוח (PDF)</button>
+            </div>
+        </div>
     </div>
-</div>
-
-<div id="share-modal-container" class="modal-container hidden">
-    <div class="modal-content">
-        <span class="close-btn" id="share-close-btn">&times;</span>
-        <h3>קישור שיתוף ושמירת נתונים</h3>
-        <p>הקישור הבא מכיל את הנתונים שהזנת. ניתן לשמור אותו או לשתף.</p>
-        <input type="text" id="share-link-output" readonly style="width: 100%; margin-bottom: 15px; text-align: left;" />
-        <button type="button" id="copy-link-btn" class="btn btn-primary" style="margin-left: 15px;">העתק קישור</button>
-        <button type="button" id="download-file-btn" class="btn btn-secondary" style="margin-left: 0;">שמור קובץ גיבוי (TXT)</button>
-        <p id="copy-message" style="margin-top: 10px; color: #2ecc71;" class="hidden">הקישור הועתק בהצלחה!</p>
-        <p id="download-message" style="margin-top: 10px; color: #2ecc71;" class="hidden">קובץ הגיבוי נשמר בהצלחה!</p>
-
-        <p style="margin-top: 20px; font-size: 0.9em;">**שימו לב:** יש לחשב את הקלוריות (ללחוץ על "חשב קלוריות") לפני שמירת קובץ או יצירת קישור.</p>
-    </div>
-</div>
 
 
-<script>
-    window.onload = function() {
-        const form = document.getElementById('calorie-form');
-        const resultsDiv = document.getElementById('results');
-        const errorMessage = document.getElementById('error-message');
-        const ageWarningDiv = document.getElementById('age-warning-message');
-        const calorieWarningDiv = document.getElementById('calorie-warning-message');
-        const resetBtn = document.getElementById('reset-btn');
-        const bfInput = document.getElementById('body-fat-percent');
-        const clearBfBtn = document.getElementById('clear-bf-btn');
-        const bmiElement = document.getElementById('bmi-result');
-        
-        // אלמנטים של מודאלים
-        const modalContainer = document.getElementById('modal-container');
-        const aboutModalContainer = document.getElementById('about-modal-container');
-        const shareModalContainer = document.getElementById('share-modal-container');
-
-        const openModalBtn = document.getElementById('open-modal-btn');
-        const openAboutModalBtn = document.getElementById('open-about-modal-btn');
-        const shareBtn = document.getElementById('share-btn');
-
-        // כפתורי סגירה למודאלים
-        const activityCloseBtn = document.querySelector('.activity-close');
-        const aboutCloseBtn = document.getElementById('about-close-btn');
-        const shareCloseBtn = document.getElementById('share-close-btn');
-
-        // אלמנטים בתוך מודאל השיתוף
-        const shareLinkOutput = document.getElementById('share-link-output');
-        const downloadFileBtn = document.getElementById('download-file-btn');
-        const copyMessage = document.getElementById('copy-message');
-        const downloadMessage = document.getElementById('download-message');
-        const calorieWarningText = document.getElementById('calorie-warning-text');
-        
-        let lastCalculationResults = null; 
-
-        // --- פונקציות עזר לחישובים ---
-
-        function calculateMifflinBMR(gender, weight, height, age) {
-            if (gender === 'male') {
-                return (10 * weight) + (6.25 * height) - (5 * age) + 5;
-            } else {
-                return (10 * weight) + (6.25 * height) - (5 * age) - 161;
-            }
-        }
-
-        function calculateKatchBMR(weight, bodyFatPercent) {
-            const BF = bodyFatPercent / 100; 
-            const LBM = weight * (1 - BF); 
-            return 370 + (21.6 * LBM);
-        }
-
-        const activityMultipliers = {
-            sedentary: 1.2,
-            light: 1.375,
-            moderate: 1.55,
-            high: 1.725,
-            extreme: 1.9
-        };
-        
-        function calculateBMI(weight, height) {
-            const heightMeters = height / 100;
-            // מניעת חלוקה באפס או ערך קטן מדי שיוביל ל-Infinity/NaN
-            if (heightMeters <= 0.1) return NaN; 
-            return weight / (heightMeters * heightMeters);
-        }
-
-        function getBMICategory(bmi) {
-            let category, className;
-            if (bmi < 18.5) {
-                category = 'תת-משקל';
-                className = 'bmi-underweight';
-            } else if (bmi >= 18.5 && bmi <= 24.9) {
-                category = 'משקל תקין';
-                className = 'bmi-normal';
-            } else if (bmi >= 25 && bmi <= 29.9) {
-                category = 'עודף משקל';
-                className = 'bmi-overweight';
-            } else {
-                category = 'השמנת יתר'; 
-                className = 'bmi-obese';
-            }
-            return { category, className };
-        }
-        
-        function getMacroNutrients(tdee, weight, macroMethod) {
-            let proteinGrams, fatGrams, carbGrams;
-            let proteinCals, fatCals, carbCals;
-            let totalCalsFromMacro = tdee;
-
-            if (totalCalsFromMacro === 0) totalCalsFromMacro = 1; 
-            
-            if (macroMethod === 'grams_per_kg') {
-                if (weight <= 0 || isNaN(weight)) {
-                    weight = 70; 
-                }
-                
-                proteinGrams = 2.0 * weight; 
-                proteinCals = proteinGrams * 4;
-                fatGrams = 0.8 * weight;
-                fatCals = fatGrams * 9;
-                
-                carbCals = tdee - proteinCals - fatCals;
-                if (carbCals < 0) {
-                    carbCals = 0; 
-                    proteinCals = tdee * 0.4; 
-                    fatCals = tdee * 0.25;
-                    carbCals = tdee * 0.35;
-                    proteinGrams = proteinCals / 4;
-                    fatGrams = fatCals / 9;
-                    carbGrams = carbCals / 4;
-                }
-                carbGrams = carbCals / 4;
-
-            } else {
-                const proteinPercent = 0.35; 
-                const fatPercent = 0.25;     
-                const carbPercent = 0.40;    
-                
-                proteinCals = tdee * proteinPercent;
-                fatCals = tdee * fatPercent;
-                carbCals = tdee * carbPercent;
-                
-                proteinGrams = proteinCals / 4;
-                fatGrams = fatCals / 9;
-                carbGrams = carbCals / 4;
-            }
-
-            return {
-                proteinGrams: proteinGrams,
-                fatGrams: fatGrams,
-                carbGrams: carbGrams,
-                
-                proteinCals: proteinCals,
-                fatCals: fatCals,
-                carbCals: carbCals,
-
-                proteinPercent: (proteinCals / totalCalsFromMacro) * 100,
-                fatPercent: (fatCals / totalCalsFromMacro) * 100,
-                carbPercent: (carbCals / totalCalsFromMacro) * 100
-            };
-        }
-        
-        function updateMacroResults(prefix, calories, weight, macroMethod) {
-            const macro = getMacroNutrients(calories, weight, macroMethod);
-
-            document.getElementById(`${prefix}-result`).textContent = Math.round(calories).toLocaleString();
-
-            document.getElementById(`${prefix}_p_g`).textContent = Math.round(macro.proteinGrams).toLocaleString();
-            document.getElementById(`${prefix}_f_g`).textContent = Math.round(macro.fatGrams).toLocaleString();
-            document.getElementById(`${prefix}_c_g`).textContent = Math.round(macro.carbGrams).toLocaleString();
-            
-            document.getElementById(`${prefix}_p_cal`).textContent = Math.round(macro.proteinCals).toLocaleString();
-            document.getElementById(`${prefix}_f_cal`).textContent = Math.round(macro.fatCals).toLocaleString();
-            document.getElementById(`${prefix}_c_cal`).textContent = Math.round(macro.carbCals).toLocaleString();
-
-            document.getElementById(`${prefix}_p_p`).textContent = `${Math.round(macro.proteinPercent)}%`;
-            document.getElementById(`${prefix}_f_p`).textContent = `${Math.round(macro.fatPercent)}%`;
-            document.getElementById(`${prefix}_c_p`).textContent = `${Math.round(macro.carbPercent)}%`;
-            
-            return macro;
-        }
-
-        // --- פונקציה ראשית: חישוב ושמירת תוצאות בזיכרון ---
-        
-        function calculateAndDisplayResults(e) {
-            if (e && e.preventDefault) { e.preventDefault(); }
-
-            errorMessage.classList.add('hidden');
-            ageWarningDiv.classList.add('hidden');
-            calorieWarningDiv.classList.add('hidden');
-            resultsDiv.style.opacity = '0';
-            resultsDiv.style.transform = 'translateY(20px)';
-            resultsDiv.classList.add('hidden');
-            resetBtn.classList.add('hidden'); 
-            
-            // --- קבלת נתונים ---
-            const gender = document.getElementById('gender').value;
-            const age = parseInt(document.getElementById('age').value) || 0; 
-            const weight = parseFloat(document.getElementById('weight').value) || 0;
-            const height = parseFloat(document.getElementById('height').value) || 0;
-            const activityLevel = document.getElementById('activity').value;
-            const goal = document.getElementById('goal').value;
-            const bfPercentVal = bfInput.value;
-            const bfPercent = bfPercentVal === "" ? NaN : parseFloat(bfPercentVal);
-            const macroMethod = document.getElementById('macro-method').value;
-            const macroMethodText = document.getElementById('macro-method').options[document.getElementById('macro-method').selectedIndex].text;
-
-            // --- אימות קלט בסיסי ---
-            if (!gender || age <= 0 || weight <= 0 || height <= 0 || !activityLevel || !goal) {
-                errorMessage.classList.remove('hidden');
-                return; 
-            }
-
-            // אימות גיל (רק אזהרה)
-            if (age < 16 && age > 0) {
-                document.getElementById('age-warning-text').textContent = `מחשבון זה מיועד לגיל 16 ומעלה. אנא התייעץ עם איש מקצוע עבור נתונים מדויקים יותר.`;
-                ageWarningDiv.classList.remove('hidden');
-            }
-            
-            // חישוב BMR/TDEE
-            let bmr;
-            const isKatch = (!isNaN(bfPercent) && bfPercent > 0);
-            if (isKatch) {
-                bmr = calculateKatchBMR(weight, bfPercent);
-            } else {
-                bmr = calculateMifflinBMR(gender, weight, height, age);
-            }
-            const tdee = bmr * activityMultipliers[activityLevel];
-            
-            const weeklyCalorieDeficit = 7700;
-            let calAdjustment;
-
-            switch (goal) {
-                case 'maintain': calAdjustment = 0; break;
-                case 'mild_cut': calAdjustment = -(weeklyCalorieDeficit * 0.25) / 7; break; 
-                case 'moderate_cut': calAdjustment = -(weeklyCalorieDeficit * 0.5) / 7; break; 
-                case 'mild_bulk': calAdjustment = (weeklyCalorieDeficit * 0.25) / 7; break;
-                case 'moderate_bulk': calAdjustment = (weeklyCalorieDeficit * 0.5) / 7; break;
-                default: calAdjustment = 0;
-            }
-
-            let targetCalories = tdee + calAdjustment;
-            const bmi = calculateBMI(weight, height);
-            
-            // בדיקת אזהרת קלוריות מינימליות
-            const minCaloriesMale = 1500;
-            const minCaloriesFemale = 1200;
-            let minCalorieLimit = gender === 'male' ? minCaloriesMale : minCaloriesFemale;
-            let finalTargetCalories = targetCalories;
-
-            if (targetCalories < minCalorieLimit && goal.includes('cut')) {
-                calorieWarningText.textContent = `צריכת הקלוריות היומית המחושבת (${Math.round(targetCalories).toLocaleString()} קלוריות) נמוכה מהסף המינימלי המומלץ (${minCalorieLimit} קלוריות). אנא התייעץ עם איש מקצוע. היעד הקלורי עודכן ל-${minCalorieLimit} קלוריות.`;
-                calorieWarningDiv.classList.remove('hidden');
-                finalTargetCalories = minCalorieLimit; 
-            }
-            
-            // הצגת תוצאות
-            document.getElementById('target-calories').textContent = Math.round(finalTargetCalories).toLocaleString();
-            document.getElementById('tdee-result').textContent = `סה"כ ${Math.round(tdee).toLocaleString()} קלוריות ביום`;
-            
-            let bmiCategory = 'לא ידוע';
-            let bmiClass = '';
-
-            // הצגת BMI - טיפול מחוזק לצבע
-            if (!isNaN(bmi) && isFinite(bmi) && bmi > 0) {
-                 const { category, className } = getBMICategory(bmi);
-                 bmiCategory = category;
-                 bmiClass = className;
-                 
-                 bmiElement.textContent = `${bmi.toFixed(1)} (${bmiCategory})`;
-                 // *** התיקון הקריטי: איפוס המחלקות לפני הוספה וטיפול בצבע ***
-                 bmiElement.className = 'result-value'; 
-                 if (bmiClass) {
-                     bmiElement.classList.add(bmiClass);
-                 } else {
-                     // אם הקטגוריה לא נמצאה (BMI קיצוני ביותר שלא מכוסה), ודא צבע נראה
-                     bmiElement.style.color = '#00c6ff';
-                 }
-            } else {
-                 bmiElement.textContent = '--';
-                 bmiElement.className = 'result-value'; 
-                 bmiElement.style.color = 'gray';
-            }
-            
-            // חישוב ושמירת מאקרו לזיכרון
-            const macroMaintain = updateMacroResults('m', tdee, weight, macroMethod);
-            const moderateCut = tdee - (weeklyCalorieDeficit * 0.5) / 7;
-            const macroCut = updateMacroResults('c', moderateCut, weight, macroMethod);
-            const moderateBulk = tdee + (weeklyCalorieDeficit * 0.5) / 7;
-            const macroBulk = updateMacroResults('b', moderateBulk, weight, macroMethod);
-            
-            // שמירת כל הנתונים (קלט ופלט) במשתנה גלובלי
-            lastCalculationResults = {
-                timestamp: new Date().toLocaleString('he-IL'),
-                input: {
-                    gender, age, weight, height, activityLevel, goal,
-                    bodyFatPercent: isKatch ? bfPercent : 'לא הוזן (נוסחת Mifflin-St Jeor)',
-                    bmrFormula: isKatch ? 'Katch-McArdle' : 'Mifflin-St Jeor',
-                    macroMethod: macroMethodText
-                },
-                output: {
-                    bmi: isNaN(bmi) || !isFinite(bmi) ? 'N/A' : bmi.toFixed(1),
-                    bmiCategory: bmiCategory,
-                    bmr: Math.round(bmr),
-                    tdee: Math.round(tdee),
-                    targetCalories: Math.round(finalTargetCalories),
-                    maintain: { calories: Math.round(tdee), macro: macroMaintain },
-                    cut: { calories: Math.round(moderateCut), macro: macroCut },
-                    bulk: { calories: Math.round(moderateBulk), macro: macroBulk }
-                }
-            };
-
-            // הצגת הדיב
-            resultsDiv.classList.remove('hidden');
-            setTimeout(() => {
-                resultsDiv.style.opacity = '1';
-                resultsDiv.style.transform = 'translateY(0)';
-            }, 50); 
-            resetBtn.classList.remove('hidden');
-        }
-
-        // --- פונקציית שמירת קובץ ---
-        
-        function downloadDataFile(data) {
-            if (!data) {
-                alert('אנא חשב את הקלוריות לפני שמירת הקובץ.');
-                return;
-            }
-
-            const fileName = `Calorie_Plan_${data.input.weight}kg_${new Date().getFullYear()}${new Date().getMonth()+1}${new Date().getDate()}.txt`;
-            
-            let fileContent = "=== סיכום חישוב קלוריות ומאקרונוטריינטים ===\n";
-            fileContent += `תאריך חישוב: ${data.timestamp}\n\n`;
-
-            fileContent += "--- נתוני קלט ---\n";
-            fileContent += `מין: ${data.input.gender === 'male' ? 'זכר' : 'נקבה'}\n`;
-            fileContent += `גיל: ${data.input.age} שנים\n`;
-            fileContent += `משקל: ${data.input.weight} ק"ג\n`;
-            fileContent += `גובה: ${data.input.height} ס"מ\n`;
-            fileContent += `פעילות: ${data.input.activityLevel}\n`;
-            fileContent += `אחוז שומן: ${data.input.bodyFatPercent}\n`;
-            fileContent += `נוסחת BMR: ${data.input.bmrFormula}\n`;
-            fileContent += `שיטת מאקרו: ${data.input.macroMethod}\n\n`;
-
-            fileContent += "--- תוצאות עיקריות ---\n";
-            fileContent += `BMR (בסיסי): ${data.output.bmr} קלוריות\n`;
-            fileContent += `TDEE (תחזוקה): ${data.output.tdee} קלוריות\n`;
-            fileContent += `מדד BMI: ${data.output.bmi} (${data.output.bmiCategory})\n`;
-            fileContent += `**יעד יומי מומלץ:** ${data.output.targetCalories} קלוריות\n\n`;
-            
-            // פירוט מאקרו (דוגמה אחת - תחזוקה)
-            const maintain = data.output.maintain;
-            fileContent += `--- פירוט מאקרו (תחזוקה - ${maintain.calories} קלוריות) ---\n`;
-            fileContent += `חלבון: ${Math.round(maintain.macro.proteinGrams)} גרם | ${Math.round(maintain.macro.proteinCals)} ק"ל | ${Math.round(maintain.macro.proteinPercent)}%\n`;
-            fileContent += `שומן: ${Math.round(maintain.macro.fatGrams)} גרם | ${Math.round(maintain.macro.fatCals)} ק"ל | ${Math.round(maintain.macro.fatPercent)}%\n`;
-            fileContent += `פחמימה: ${Math.round(maintain.macro.carbGrams)} גרם | ${Math.round(maintain.macro.carbCals)} ק"ל | ${Math.round(maintain.macro.carbPercent)}%\n\n`;
-
-            fileContent += "--------------------------------------------------------\n";
-            fileContent += "נתונים אלו הם המלצות כלליות. יש להתייעץ עם איש מקצוע.\n";
-
-
-            const blob = new Blob([fileContent], { type: 'text/plain;charset=utf-8' });
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = fileName;
-            
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
-
-        // --- פונקציית איפוס ---
-        function resetCalculator() {
-            document.getElementById('calorie-form').reset();
-            document.getElementById('results').style.opacity = '0';
-            document.getElementById('results').style.transform = 'translateY(20px)';
-            setTimeout(() => {
-                document.getElementById('results').classList.add('hidden');
-            }, 500); 
-            
-            resetBtn.classList.add('hidden');
-            errorMessage.classList.add('hidden');
-            ageWarningDiv.classList.add('hidden');
-            calorieWarningDiv.classList.add('hidden');
-            document.getElementById('bf-note').textContent = `אם מוזן, משתמש בנוסחת Katch-McArdle (מדויקת יותר).`;
-            lastCalculationResults = null; // איפוס תוצאות הגיבוי
-        }
-
-        // --- חיבור אירועים (Event Listeners) ---
-
-        // 1. חיבור כפתור החישוב
-        form.addEventListener('submit', calculateAndDisplayResults);
-        
-        // 2. חיבור כפתור האיפוס
-        resetBtn.addEventListener('click', resetCalculator);
-
-        // 3. חיבור לוגיקת אחוזי שומן
-        bfInput.addEventListener('input', function() {
-            const note = document.getElementById('bf-note');
-            if (this.value && parseFloat(this.value) > 0) {
-                note.textContent = `נבחרה נוסחת Katch-McArdle לחישוב BMR (מדויק יותר).`;
-            } else {
-                note.textContent = `אם מוזן, משתמש בנוסחת Katch-McArdle (מדויקת יותר).`;
-            }
-        });
-
-        clearBfBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            bfInput.value = '';
-            document.getElementById('bf-note').textContent = `אם מוזן, משתמש בנוסחת Katch-McArdle (מדויקת יותר).`;
-        });
-        
-        // 4. חיבור מודאל השיתוף/שמירה
-        shareBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            if (!lastCalculationResults) {
-                alert('יש לחשב את הקלוריות לפני יצירת קישור או שמירה!');
-                return;
-            }
-
-            const data = lastCalculationResults.input;
-            const queryString = Object.keys(data).map(key => key + '=' + encodeURIComponent(data[key])).join('&');
-            // יצירת קישור URL עם נתונים ב-hash
-            shareLinkOutput.value = window.location.href.split('#')[0] + '#' + queryString; 
-
-            copyMessage.classList.add('hidden');
-            downloadMessage.classList.add('hidden');
-            shareModalContainer.classList.remove('hidden');
-        });
-
-        // 5. חיבור כפתור שמירת הקובץ
-        downloadFileBtn.addEventListener('click', function() {
-            downloadDataFile(lastCalculationResults);
-            copyMessage.classList.add('hidden');
-            downloadMessage.classList.remove('hidden');
-            setTimeout(() => downloadMessage.classList.add('hidden'), 3000);
-        });
-
-        // 6. חיבור כפתור העתקת הקישור
-        document.getElementById('copy-link-btn').addEventListener('click', function() {
-            shareLinkOutput.select();
-            document.execCommand('copy');
-            copyMessage.classList.remove('hidden');
-            downloadMessage.classList.add('hidden');
-            setTimeout(() => copyMessage.classList.add('hidden'), 2000);
-        });
-
-        // 7. חיבור מודאל הפעילות
-        openModalBtn.addEventListener('click', function(e) { e.preventDefault(); modalContainer.classList.remove('hidden'); });
-        activityCloseBtn.addEventListener('click', function() { modalContainer.classList.add('hidden'); });
-
-        // 8. חיבור מודאל אודות
-        openAboutModalBtn.addEventListener('click', function(e) { e.preventDefault(); aboutModalContainer.classList.remove('hidden'); });
-        aboutCloseBtn.addEventListener('click', function() { aboutModalContainer.classList.add('hidden'); });
-        
-        // 9. סגירת מודאל השיתוף
-        shareCloseBtn.addEventListener('click', function() { shareModalContainer.classList.add('hidden'); });
-
-
-        // סגירת מודאל בלחיצה מחוץ
-        window.onclick = function(event) {
-            if (event.target === modalContainer) { modalContainer.classList.add('hidden'); }
-            if (event.target === aboutModalContainer) { aboutModalContainer.classList.add('hidden'); }
-            if (event.target === shareModalContainer) { shareModalContainer.classList.add('hidden'); }
-        }
-    }; // סגירת window.onload
-</script>
-
+    <script src="script.js"></script>
+    <script>
+        // טעינת תוכן about.html לתוך המודאל
+        fetch('about.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('about-content').innerHTML = data;
+            });
+    </script>
 </body>
 </html>

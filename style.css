@@ -1,277 +1,346 @@
-<style>
-    /* הגדרות גלובליות וצבעי מותג חדשים */
-    :root {
-        /* גראדיאנטים וצבעי רקע קרירים */
-        --dark-bg: #1c1e21; /* רקע כהה מאוד (כמעט שחור) */
-        --card-bg: #2a2e35; /* רקע כרטיס אפור כהה */
-        --text-light: #ecf0f1; /* טקסט בהיר */
-        --primary-gradient: linear-gradient(135deg, #00c6ff, #0072ff); /* כחול-ציאן יוקרתי */
-        --secondary-gradient: linear-gradient(135deg, #ff6a00, #ee0979); /* כתום-ורוד עמוק להדגשה */
-        --shadow-dark: 0 10px 30px rgba(0, 0, 0, 0.5); /* צל עמוק */
-        --border-radius: 16px;
-    }
+/* הגדרות גלובליות וצבעי מותג חדשים */
+:root {
+    /* גראדיאנטים וצבעי רקע קרירים */
+    --dark-bg: #1c1e21; /* רקע כהה מאוד (כמעט שחור) */
+    --card-bg: #2a2e35; /* רקע כרטיס אפור כהה */
+    --text-light: #ecf0f1; /* טקסט בהיר */
+    --primary-gradient: linear-gradient(135deg, #00c6ff, #0072ff); /* כחול-ציאן יוקרתי */
+    --secondary-gradient: linear-gradient(135deg, #ff6a00, #ee0979); /* כתום-ורוד עמוק להדגשה */
+    --shadow-dark: 0 10px 30px rgba(0, 0, 0, 0.5); /* צל עמוק */
+    --border-radius: 16px;
+    --primary-color: #009688; /* Teal - צבע ראשי לשדרוג */
+}
 
-    /* ---------------------------------- */
-    /* גוף וקונטיינר */
-    /* ---------------------------------- */
+/* ---------------------------------- */
+/* גוף וקונטיינר */
+/* ---------------------------------- */
 
-    body {
-        font-family: 'Rubik', sans-serif; /* טיפוגרפיה מודרנית */
-        background-color: var(--dark-bg);
-        color: var(--text-light);
-        direction: rtl;
-        text-align: right;
-        padding: 40px 20px;
-        line-height: 1.6;
-        transition: background-color 0.5s;
-    }
+body {
+    font-family: 'Rubik', sans-serif; /* טיפוגרפיה מודרנית */
+    background-color: var(--dark-bg);
+    color: var(--text-light);
+    direction: rtl;
+    text-align: right;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column; /* מאפשר פוטר בתחתית */
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 100vh;
+    padding: 40px 20px;
+    box-sizing: border-box;
+}
 
-    .container {
-        max-width: 950px;
-        margin: 0 auto;
-        background-color: var(--card-bg);
-        padding: 50px;
-        border-radius: var(--border-radius);
-        box-shadow: var(--shadow-dark);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(5px);
-    }
+.main-container {
+    width: 100%;
+    max-width: 800px;
+    flex-grow: 1; /* מאפשר לו לתפוס את מירב הגובה */
+}
 
-    /* ---------------------------------- */
-    /* כותרות וטקסט */
-    /* ---------------------------------- */
+h1 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 30px;
+    font-size: 2.5em;
+    font-weight: 900;
+}
 
-    h1 {
-        font-size: 3em;
-        font-weight: 900;
-        text-align: center;
-        margin-bottom: 5px;
-        background-image: var(--primary-gradient);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        color: transparent;
-        text-shadow: 0 0 5px rgba(0, 198, 255, 0.4);
-    }
-    
-    .container > p {
-        text-align: center;
-        margin-bottom: 40px;
-        color: rgba(255, 255, 255, 0.7);
-        font-size: 1.1em;
-    }
+/* ---------------------------------- */
+/* כרטיסים וטפסים */
+/* ---------------------------------- */
 
-    h2, h3 {
-        color: var(--text-light);
-        font-weight: 700;
-        font-size: 1.8em;
-        padding-bottom: 15px;
-        margin-top: 40px;
-        border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    }
-    
-    /* ---------------------------------- */
-    /* אלמנטים של קלט (Input/Select) */
-    /* ---------------------------------- */
+.card {
+    background-color: var(--card-bg);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-dark);
+    margin-bottom: 30px;
+    border-top: 5px solid var(--primary-color);
+}
 
-    label {
-        color: var(--text-light);
-        font-weight: 600;
-        margin-bottom: 10px;
-    }
+.form-group {
+    margin-bottom: 20px;
+}
 
-    input[type="number"], select {
-        width: 100%;
-        padding: 14px 18px;
-        border: none;
-        border-radius: 10px;
-        background-color: #3b3f46; /* רקע קלט כהה */
-        color: var(--text-light);
-        box-shadow: inset 5px 5px 10px #202327, inset -5px -5px 10px #343940; /* ניאומורפיזם קל */
-        transition: all 0.3s ease;
-        appearance: none; /* הסרת סגנונות דפדפן מובנים */
-    }
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--text-light);
+}
 
-    input[type="number"]:focus, select:focus {
-        background-color: #3f444c;
-        outline: none;
-        box-shadow: 0 0 0 2px #00c6ff, inset 2px 2px 5px #202327, inset -2px -2px 5px #343940; /* הדגשה כחולה בפוקוס */
-    }
-    
-    /* ---------------------------------- */
-    /* כפתורים - מודגשים בגראדיאנט */
-    /* ---------------------------------- */
-    
-    .btn {
-        padding: 14px 30px;
-        border: none;
-        border-radius: 10px;
-        cursor: pointer;
-        font-size: 17px;
-        font-weight: bold;
-        transition: all 0.3s ease;
-        margin-left: 15px;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
+input[type="number"], 
+input[type="text"], 
+select {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 8px;
+    border: 1px solid #444;
+    background-color: #31363d;
+    color: var(--text-light);
+    font-size: 1em;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
 
-    .btn-primary {
-        background: var(--primary-gradient);
-        color: var(--text-light);
-        box-shadow: 0 5px 15px rgba(0, 114, 255, 0.5);
-    }
+input[type="number"]:focus, 
+input[type="text"]:focus, 
+select:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
 
-    .btn-secondary {
-        background: var(--secondary-gradient);
-        color: var(--text-light);
-        box-shadow: 0 5px 15px rgba(238, 9, 121, 0.5);
-    }
-    
-    .btn:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-        opacity: 0.9;
-    }
-    
-    /* ---------------------------------- */
-    /* תוצאות וטבלאות */
-    /* ---------------------------------- */
+/* ---------------------------------- */
+/* כפתורים */
+/* ---------------------------------- */
 
-    #results {
-        margin-top: 50px;
-        padding: 40px;
-        border-radius: var(--border-radius);
-        background-color: #31363d; /* רקע כהה לתוצאות */
-        opacity: 0;
-        transform: translateY(20px);
-        transition: opacity 0.7s ease, transform 0.7s ease;
-        border: 1px solid rgba(255, 255, 255, 0.15);
-    }
-    
-    .result-item {
-        margin-bottom: 20px;
-        padding: 15px 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        display: flex;
-        justify-content: space-between;
-    }
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    gap: 15px;
+}
 
-    .result-label {
-        font-weight: 500;
-        color: rgba(255, 255, 255, 0.8);
-        font-size: 1.1em;
-    }
+.primary-btn, .secondary-btn, .action-btn {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    font-size: 1em;
+    white-space: nowrap;
+}
 
-    .result-value {
-        font-weight: 900;
-        font-size: 1.5em;
-        background-image: var(--primary-gradient);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        color: transparent;
-    }
+.small-btn {
+    padding: 8px 15px;
+    font-size: 0.9em;
+}
 
-    #target-calories {
-        font-size: 3em;
-        font-weight: 900;
-        background-image: var(--secondary-gradient);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        color: transparent;
-        text-shadow: 0 0 10px rgba(238, 9, 121, 0.6);
-    }
-    
-    /* טבלת מאקרו */
-    .macro-table {
-        border-radius: var(--border-radius);
-        overflow: hidden;
-        margin-top: 25px;
-    }
+.primary-btn {
+    background: var(--primary-gradient);
+    color: white;
+}
 
-    .macro-table th, .macro-table td {
-        padding: 15px 10px;
-        border: none;
-    }
-    
-    .macro-table th {
-        background-color: #202327;
-        color: #00c6ff;
-        font-weight: 700;
-        font-size: 1.1em;
-    }
-    
-    .macro-table tr:nth-child(even) {
-        background-color: #3b3f46;
-    }
-    
-    .macro-table tr:nth-child(odd) {
-        background-color: #31363d;
-    }
-    
-    .macro-table tr:hover {
-        background-color: #434851;
-    }
+.secondary-btn {
+    background-color: #4a515c;
+    color: var(--text-light);
+}
 
-    .macro-table td:nth-child(3) { color: #2ecc71; font-weight: bold; } /* חלבון - ירוק */
-    .macro-table td:nth-child(4) { color: #f1c40f; font-weight: bold; } /* שומן - צהוב */
-    .macro-table td:nth-child(5) { color: #3498db; font-weight: bold; } /* פחמימה - כחול */
+.primary-btn:hover {
+    box-shadow: 0 5px 15px rgba(0, 114, 255, 0.4);
+    transform: translateY(-2px);
+}
 
-    /* ---------------------------------- */
-    /* הודעות שגיאה ומודאלים */
-    /* ---------------------------------- */
-    
-    .message {
-        padding: 15px;
-        border-radius: 10px;
-        margin-bottom: 25px;
-        font-weight: bold;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    }
+.secondary-btn:hover {
+    background-color: #5d6776;
+    transform: translateY(-2px);
+}
 
-    .error {
-        background-color: #3c1e20; 
-        color: #e74c3c; 
-        border: 1px solid #e74c3c;
-    }
+/* כפתורי ניהול לקוח */
+.client-management .action-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+.client-management .action-btn {
+    flex-grow: 1;
+}
 
-    .warning {
-        background-color: #3c341e;
-        color: #f39c12;
-        border: 1px solid #f39c12;
-    }
-    
-    /* שינוי עיצוב המודאל שיתאים ל-Dark Mode */
-    .modal-content {
-        background-color: #31363d;
-        color: var(--text-light);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        box-shadow: var(--shadow-dark);
-        border-radius: 16px;
-    }
-    
-    .modal-content h3 {
-        color: #00c6ff;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
+#client-list-container {
+    margin-top: 15px;
+}
 
-    .close-btn {
-        color: rgba(255, 255, 255, 0.6);
-    }
+/* קלטים מותאמים אישית למאקרו */
+.macro-custom-inputs {
+    display: flex;
+    gap: 10px;
+}
+.macro-custom-inputs input {
+    width: calc(33.33% - 7px);
+    text-align: center;
+}
+#custom-gpk-container .macro-custom-inputs input {
+    width: calc(50% - 5px);
+}
 
-    .close-btn:hover,
-    .close-btn:focus {
-        color: #00c6ff;
-    }
 
-    .input-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 25px;
-    }
-    
-    .hidden { display: none !important; }
+/* ---------------------------------- */
+/* טבלאות תוצאות */
+/* ---------------------------------- */
 
-</style>
+.results-table, .macro-table, .history-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    text-align: center;
+}
+
+.results-table th, .macro-table th, .history-table th {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 8px;
+    font-weight: 700;
+    border: 1px solid #3d4551;
+}
+
+.results-table td, .macro-table td, .history-table td {
+    padding: 12px 8px;
+    border: 1px solid #3d4551;
+    background-color: #31363d;
+}
+
+.highlight-result {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #00c6ff; /* הדגשת תוצאה סופית */
+}
+
+/* עיצוב המאקרו נוטריינטים בצבעים שונים */
+.macro-table td:nth-child(3) { color: #2ecc71; font-weight: bold; } /* חלבון - ירוק */
+.macro-table td:nth-child(4) { color: #f1c40f; font-weight: bold; } /* שומן - צהוב */
+.macro-table td:nth-child(5) { color: #3498db; font-weight: bold; } /* פחמימה - כחול */
+
+/* ---------------------------------- */
+/* הודעות שגיאה ומודאלים */
+/* ---------------------------------- */
+
+.message {
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    font-weight: bold;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.error {
+    background-color: #3c1e20; 
+    color: #e74c3c; 
+    border: 1px solid #e74c3c;
+}
+
+.warning {
+    background-color: #3c341e;
+    color: #f39c12;
+    border: 1px solid #f39c12;
+}
+
+/* שינוי עיצוב המודאל שיתאים ל-Dark Mode */
+.modal-container {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #31363d;
+    color: var(--text-light);
+    margin: auto;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 650px;
+    box-shadow: var(--shadow-dark);
+    position: relative;
+    border-top: 5px solid var(--primary-color);
+}
+
+.modal-content h2 {
+    color: var(--primary-color);
+    border-bottom: 1px solid #4a515c;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.close-btn {
+    color: #aaa;
+    float: left;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* ---------------------------------- */
+/* עיצוב הדוח המקצועי (בתוך מודאל השיתוף) */
+/* ---------------------------------- */
+.report-section {
+    background-color: #31363d;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #4a515c;
+}
+.report-section h4 {
+    color: #00c6ff;
+    border-bottom: 1px dashed #5d6776;
+    padding-bottom: 5px;
+    margin-top: 0;
+}
+.highlight-target {
+    background-color: #1e2125;
+    border: 1px solid #00c6ff;
+    padding: 20px;
+}
+.report-section ul {
+    list-style-type: none;
+    padding: 0;
+}
+.report-section ul li {
+    margin-bottom: 5px;
+}
+.report-header h3 {
+    color: var(--primary-color);
+}
+
+/* ---------------------------------- */
+/* עיצוב ההיסטוריה */
+/* ---------------------------------- */
+.history-table th {
+    font-size: 0.9em;
+}
+.history-table td {
+    font-size: 0.85em;
+}
+
+/* ---------------------------------- */
+/* פוטר וקרדיטים (חדש) */
+/* ---------------------------------- */
+#footer-credits {
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 20px;
+    border-top: 1px solid #4a515c;
+    font-size: 0.85em;
+    color: #95a5a6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#footer-credits p {
+    margin: 0;
+}
+.footer-links button {
+    margin-right: 0;
+}
