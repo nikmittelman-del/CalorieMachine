@@ -1,0 +1,346 @@
+/* הגדרות גלובליות וצבעי מותג חדשים */
+:root {
+    /* גראדיאנטים וצבעי רקע קרירים */
+    --dark-bg: #1c1e21; /* רקע כהה מאוד (כמעט שחור) */
+    --card-bg: #2a2e35; /* רקע כרטיס אפור כהה */
+    --text-light: #ecf0f1; /* טקסט בהיר */
+    --primary-gradient: linear-gradient(135deg, #00c6ff, #0072ff); /* כחול-ציאן יוקרתי */
+    --secondary-gradient: linear-gradient(135deg, #ff6a00, #ee0979); /* כתום-ורוד עמוק להדגשה */
+    --shadow-dark: 0 10px 30px rgba(0, 0, 0, 0.5); /* צל עמוק */
+    --border-radius: 16px;
+    --primary-color: #009688; /* Teal - צבע ראשי לשדרוג */
+}
+
+/* ---------------------------------- */
+/* גוף וקונטיינר */
+/* ---------------------------------- */
+
+body {
+    font-family: 'Rubik', sans-serif; /* טיפוגרפיה מודרנית */
+    background-color: var(--dark-bg);
+    color: var(--text-light);
+    direction: rtl;
+    text-align: right;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column; /* מאפשר פוטר בתחתית */
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 100vh;
+    padding: 40px 20px;
+    box-sizing: border-box;
+}
+
+.main-container {
+    width: 100%;
+    max-width: 800px;
+    flex-grow: 1; /* מאפשר לו לתפוס את מירב הגובה */
+}
+
+h1 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 30px;
+    font-size: 2.5em;
+    font-weight: 900;
+}
+
+/* ---------------------------------- */
+/* כרטיסים וטפסים */
+/* ---------------------------------- */
+
+.card {
+    background-color: var(--card-bg);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-dark);
+    margin-bottom: 30px;
+    border-top: 5px solid var(--primary-color);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--text-light);
+}
+
+input[type="number"], 
+input[type="text"], 
+select {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 8px;
+    border: 1px solid #444;
+    background-color: #31363d;
+    color: var(--text-light);
+    font-size: 1em;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+
+input[type="number"]:focus, 
+input[type="text"]:focus, 
+select:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+/* ---------------------------------- */
+/* כפתורים */
+/* ---------------------------------- */
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    gap: 15px;
+}
+
+.primary-btn, .secondary-btn, .action-btn {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    font-size: 1em;
+    white-space: nowrap;
+}
+
+.small-btn {
+    padding: 8px 15px;
+    font-size: 0.9em;
+}
+
+.primary-btn {
+    background: var(--primary-gradient);
+    color: white;
+}
+
+.secondary-btn {
+    background-color: #4a515c;
+    color: var(--text-light);
+}
+
+.primary-btn:hover {
+    box-shadow: 0 5px 15px rgba(0, 114, 255, 0.4);
+    transform: translateY(-2px);
+}
+
+.secondary-btn:hover {
+    background-color: #5d6776;
+    transform: translateY(-2px);
+}
+
+/* כפתורי ניהול לקוח */
+.client-management .action-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+.client-management .action-btn {
+    flex-grow: 1;
+}
+
+#client-list-container {
+    margin-top: 15px;
+}
+
+/* קלטים מותאמים אישית למאקרו */
+.macro-custom-inputs {
+    display: flex;
+    gap: 10px;
+}
+.macro-custom-inputs input {
+    width: calc(33.33% - 7px);
+    text-align: center;
+}
+#custom-gpk-container .macro-custom-inputs input {
+    width: calc(50% - 5px);
+}
+
+
+/* ---------------------------------- */
+/* טבלאות תוצאות */
+/* ---------------------------------- */
+
+.results-table, .macro-table, .history-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    text-align: center;
+}
+
+.results-table th, .macro-table th, .history-table th {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 8px;
+    font-weight: 700;
+    border: 1px solid #3d4551;
+}
+
+.results-table td, .macro-table td, .history-table td {
+    padding: 12px 8px;
+    border: 1px solid #3d4551;
+    background-color: #31363d;
+}
+
+.highlight-result {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #00c6ff; /* הדגשת תוצאה סופית */
+}
+
+/* עיצוב המאקרו נוטריינטים בצבעים שונים */
+.macro-table td:nth-child(3) { color: #2ecc71; font-weight: bold; } /* חלבון - ירוק */
+.macro-table td:nth-child(4) { color: #f1c40f; font-weight: bold; } /* שומן - צהוב */
+.macro-table td:nth-child(5) { color: #3498db; font-weight: bold; } /* פחמימה - כחול */
+
+/* ---------------------------------- */
+/* הודעות שגיאה ומודאלים */
+/* ---------------------------------- */
+
+.message {
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    font-weight: bold;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.error {
+    background-color: #3c1e20; 
+    color: #e74c3c; 
+    border: 1px solid #e74c3c;
+}
+
+.warning {
+    background-color: #3c341e;
+    color: #f39c12;
+    border: 1px solid #f39c12;
+}
+
+/* שינוי עיצוב המודאל שיתאים ל-Dark Mode */
+.modal-container {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #31363d;
+    color: var(--text-light);
+    margin: auto;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 650px;
+    box-shadow: var(--shadow-dark);
+    position: relative;
+    border-top: 5px solid var(--primary-color);
+}
+
+.modal-content h2 {
+    color: var(--primary-color);
+    border-bottom: 1px solid #4a515c;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.close-btn {
+    color: #aaa;
+    float: left;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* ---------------------------------- */
+/* עיצוב הדוח המקצועי (בתוך מודאל השיתוף) */
+/* ---------------------------------- */
+.report-section {
+    background-color: #31363d;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #4a515c;
+}
+.report-section h4 {
+    color: #00c6ff;
+    border-bottom: 1px dashed #5d6776;
+    padding-bottom: 5px;
+    margin-top: 0;
+}
+.highlight-target {
+    background-color: #1e2125;
+    border: 1px solid #00c6ff;
+    padding: 20px;
+}
+.report-section ul {
+    list-style-type: none;
+    padding: 0;
+}
+.report-section ul li {
+    margin-bottom: 5px;
+}
+.report-header h3 {
+    color: var(--primary-color);
+}
+
+/* ---------------------------------- */
+/* עיצוב ההיסטוריה */
+/* ---------------------------------- */
+.history-table th {
+    font-size: 0.9em;
+}
+.history-table td {
+    font-size: 0.85em;
+}
+
+/* ---------------------------------- */
+/* פוטר וקרדיטים (חדש) */
+/* ---------------------------------- */
+#footer-credits {
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 20px;
+    border-top: 1px solid #4a515c;
+    font-size: 0.85em;
+    color: #95a5a6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#footer-credits p {
+    margin: 0;
+}
+.footer-links button {
+    margin-right: 0;
+}
