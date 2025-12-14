@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>אודות והנוסחאות - מחשבון קלוריות</title>
+    <link rel="stylesheet" href="style.css"> 
+   <style>
+    /* CSS ייחודי לדף זה */
+    
+    /* מיכל ראשי */
+    .content-box {
+        background-color: #ffffff; /* רקע לבן נקי */
+        padding: 40px; /* מרווח פנימי גדול יותר */
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* צל עדין */
+        width: 100%;
+        max-width: 750px; /* רוחב מעט גדול יותר לטקסט */
+        margin-top: 20px;
+        direction: rtl;
+        border-top: 5px solid #009688; /* פס Teal עליון תואם */
+    }
+
+    h1 {
+        color: #009688;
+        font-size: 2em;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .content-box h2 {
+        color: #34495e; /* כותרות משנה בצבע טקסט ראשי */
+        border-bottom: 2px solid #ecf0f1; /* קו הפרדה עדין */
+        padding-bottom: 8px;
+        margin-top: 35px;
+        font-size: 1.4em;
+        font-weight: 600;
+    }
+    
+    .content-box h3 {
+        color: #009688; /* צבע ה-Teal לכותרות קטנות יותר */
+        font-size: 1.1em;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+
+    /* תיבת הנוסחה - נראות מקצועית */
+    .formula-box {
+        background-color: #f7f9fb; /* רקע בהיר ומבודד */
+        border: 1px solid #e0e6ec;
+        padding: 20px;
+        border-radius: 6px;
+        margin: 20px 0;
+        overflow-x: auto; 
+        font-family: 'Consolas', 'Courier New', monospace; /* פונט מונוספייס טכני */
+        font-size: 1.1em;
+        color: #2c3e50; /* טקסט כהה לנוסחה */
+    }
+
+    .formula-box strong {
+        color: #e74c3c; /* הדגשת BMR (זכר/נקבה) באדום עדין */
+    }
+
+    /* רשימות מקדמי פעילות */
+    ul {
+        list-style: disc inside;
+        margin-right: 20px;
+        padding: 0;
+        line-height: 1.6;
+    }
+
+    ul li {
+        margin-bottom: 5px;
+        color: #34495e;
+    }
+
+    /* קישור חזרה למחשבון */
+    .back-link {
+        display: block;
+        margin-top: 40px;
+        text-align: center;
+        color: #3498db;
+        text-decoration: none;
+        font-weight: bold;
+        padding: 10px 20px;
+        border: 2px solid #3498db;
+        border-radius: 6px;
+        transition: background-color 0.3s, color 0.3s;
+        max-width: 300px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    
+    .back-link:hover {
+        background-color: #3498db;
+        color: white;
+        text-decoration: none;
+    }
+
+    /* רספונסיביות בסיסית */
+    @media (max-width: 768px) {
+        .content-box {
+            padding: 25px;
+        }
+        h1 {
+            font-size: 1.7em;
+        }
+    }
+</style>
+</head>
+<body>
+    <div class="content-box">
+        <h1>אודות המחשבון והמתודולוגיה</h1>
+        
+        <p>מחשבון קלוריות יומי זה (TDEE) משתמש בשיטות חישוב מדעיות ומוכרות על מנת לספק הערכה מדויקת ככל הניתן של דרישות האנרגיה היומיות של גופך.</p>
+
+        <h2>1. חישוב BMR (קצב חילוף החומרים הבסיסי)</h2>
+        <p>קצב חילוף החומרים הבסיסי (BMR - Basal Metabolic Rate) מייצג את כמות הקלוריות שגופך שורף במנוחה מוחלטת, כלומר לצורך תפקודים חיוניים כמו נשימה, מחזור דם ותחזוקת איברים.</p>
+        
+        <h3>הנוסחה בה אנו משתמשים: Mifflin-St Jeor</h3>
+        <p>זוהי הנוסחה המקובלת והמדויקת ביותר כיום (יותר מנוסחת Harris-Benedict הוותיקה), והיא מבוססת על משקל (W), גובה (H), גיל (A) ומין.</p>
+        
+        <div class="formula-box">
+            <p><strong>BMR (זכר)</strong>: $$(10 \times W_{kg}) + (6.25 \times H_{cm}) - (5 \times A_{years}) + 5$$</p>
+            <p><strong>BMR (נקבה)</strong>: $$(10 \times W_{kg}) + (6.25 \times H_{cm}) - (5 \times A_{years}) - 161$$</p>
+        </div>
+        
+        <h2>2. חישוב TDEE (הוצאה אנרגטית יומית כוללת)</h2>
+        <p>הוצאה אנרגטית יומית כוללת (TDEE - Total Daily Energy Expenditure) היא ה-BMR בתוספת הקלוריות שאתה שורף באמצעות פעילות גופנית יומיומית ותנועה (Activity Factor).</p>
+        
+        <div class="formula-box">
+            <p><strong>TDEE</strong> = $$BMR \times \text{Activity Factor}$$</p>
+        </div>
+
+        <h3>מקדם הפעילות</h3>
+        <p>מחשבון זה משתמש במקדמים הבאים כדי להתאים את ה-BMR לרמת הפעילות המדווחת שלך:</p>
+        
+        <ul>
+            <li>**ישיבתי (Sedentary):** 1.2 (עבודה משרדית, מעט תנועה)</li>
+            <li>**קל (Light):** 1.375 (אימון קל 1-3 בשבוע)</li>
+            <li>**בינוני (Moderate):** 1.55 (אימון בינוני 3-5 בשבוע)</li>
+            <li>**גבוה (High):** 1.725 (אימון אינטנסיבי 6-7 בשבוע)</li>
+            <li>**קיצוני (Extreme):** 1.9 (אימון יומי כפול / עבודה פיזית קשה)</li>
+        </ul>
+        
+        <h2>3. יעדי קלוריות</h2>
+        <p>היעדים מוצגים בהתבסס על ה-TDEE שלך:</p>
+        <ul>
+            <li><strong>שמירה:</strong> שווה ל-TDEE.</li>
+            <li><strong>חיטוב (גירעון):</strong> TDEE - 500 קלוריות (ליצירת גירעון קלורי בטוח ומהיר יחסית).</li>
+            <li><strong>מסה (עודף):</strong> TDEE + 300 קלוריות (ליצירת עודף קלורי קל לצורך בניית שריר מיטבית).</li>
+        </ul>
+
+        <a href="index.html" class="back-link">חזור למחשבון הקלוריות</a>
+    </div>
+</body>
+</html>
