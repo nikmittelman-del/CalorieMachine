@@ -1,0 +1,962 @@
+/* הגדרות גלובליות וצבעי מותג חדשים */
+:root {
+    /* גראדיאנטים וצבעי רקע קרירים */
+    --dark-bg: #1c1e21; /* רקע כהה מאוד (כמעט שחור) */
+    --card-bg: #2a2e35; /* רקע כרטיס אפור כהה */
+    --text-light: #ecf0f1; /* טקסט בהיר */
+    --primary-gradient: linear-gradient(135deg, #00c6ff, #0072ff); /* כחול-ציאן יוקרתי */
+    --secondary-gradient: linear-gradient(135deg, #ff6a00, #ee0979); /* כתום-ורוד עמוק להדגשה */
+    --shadow-dark: 0 10px 30px rgba(0, 0, 0, 0.5); /* צל עמוק */
+    --border-radius: 16px;
+    --primary-color: #009688; /* Teal - צבע ראשי לשדרוג */
+}
+
+/* ---------------------------------- */
+/* גוף וקונטיינר */
+/* ---------------------------------- */
+
+body {
+    font-family: 'Rubik', sans-serif; /* טיפוגרפיה מודרנית */
+    background-color: var(--dark-bg);
+    color: var(--text-light);
+    direction: rtl;
+    text-align: right;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column; /* מאפשר פוטר בתחתית */
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px 15px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.main-container {
+    width: 100%;
+    max-width: 800px;
+    flex-grow: 1; /* מאפשר לו לתפוס את מירב הגובה */
+}
+
+h1 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    font-size: 1.8em;
+    font-weight: 900;
+}
+
+h2 {
+    font-size: 1.4em;
+    margin-bottom: 15px;
+}
+
+h3 {
+    font-size: 1.2em;
+}
+
+h4 {
+    font-size: 1.1em;
+}
+
+/* ---------------------------------- */
+/* כרטיסים וטפסים */
+/* ---------------------------------- */
+
+.card {
+    background-color: var(--card-bg);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-dark);
+    margin-bottom: 20px;
+    border-top: 5px solid var(--primary-color);
+    overflow: hidden;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: var(--text-light);
+    font-size: 0.95em;
+}
+
+input[type="number"], 
+input[type="text"], 
+select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #444;
+    background-color: #31363d;
+    color: var(--text-light);
+    font-size: 1em;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+input[type="number"]:focus, 
+input[type="text"]:focus, 
+select:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+/* עיצוב מיוחד לסלקטים במובייל */
+select {
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: left 15px center;
+    background-size: 20px;
+    padding-left: 40px;
+}
+
+/* ---------------------------------- */
+/* כפתורים */
+/* ---------------------------------- */
+
+.form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.primary-btn, .secondary-btn, .action-btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    font-size: 1em;
+    white-space: nowrap;
+    flex: 1;
+    min-width: 120px;
+    text-align: center;
+}
+
+.small-btn {
+    padding: 8px 12px;
+    font-size: 0.9em;
+    min-width: auto;
+}
+
+.primary-btn {
+    background: var(--primary-gradient);
+    color: white;
+}
+
+.secondary-btn {
+    background-color: #4a515c;
+    color: var(--text-light);
+}
+
+.primary-btn:hover {
+    box-shadow: 0 5px 15px rgba(0, 114, 255, 0.4);
+    transform: translateY(-2px);
+}
+
+.secondary-btn:hover {
+    background-color: #5d6776;
+    transform: translateY(-2px);
+}
+
+/* כפתורי ניהול לקוח */
+.client-management .action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+}
+.client-management .action-btn {
+    flex: 1;
+    min-width: calc(50% - 5px);
+}
+
+#client-list-container {
+    margin-top: 15px;
+}
+
+/* קלטים מותאמים אישית למאקרו */
+.macro-custom-inputs {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+.macro-custom-inputs input {
+    flex: 1;
+    min-width: 80px;
+    text-align: center;
+}
+#custom-gpk-container .macro-custom-inputs input {
+    min-width: 120px;
+}
+
+/* ---------------------------------- */
+/* טבלאות תוצאות - מותאם למובייל */
+/* ---------------------------------- */
+
+.results-table, .macro-table, .history-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    text-align: center;
+    font-size: 0.9em;
+    overflow-x: auto;
+    display: block;
+}
+
+.results-table th, .macro-table th, .history-table th {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 6px;
+    font-weight: 700;
+    border: 1px solid #3d4551;
+    font-size: 0.9em;
+    white-space: nowrap;
+}
+
+.results-table td, .macro-table td, .history-table td {
+    padding: 10px 6px;
+    border: 1px solid #3d4551;
+    background-color: #31363d;
+    white-space: nowrap;
+}
+
+.highlight-result {
+    font-size: 1em;
+    font-weight: bold;
+    color: #00c6ff; /* הדגשת תוצאה סופית */
+}
+
+/* עיצוב המאקרו נוטריינטים בצבעים שונים */
+.macro-table td:nth-child(3) { color: #2ecc71; font-weight: bold; } /* חלבון - ירוק */
+.macro-table td:nth-child(4) { color: #f1c40f; font-weight: bold; } /* שומן - צהוב */
+.macro-table td:nth-child(5) { color: #3498db; font-weight: bold; } /* פחמימה - כחול */
+
+/* ---------------------------------- */
+/* הודעות שגיאה ומודאלים */
+/* ---------------------------------- */
+
+.message {
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    font-size: 0.9em;
+}
+
+.error {
+    background-color: #3c1e20; 
+    color: #e74c3c; 
+    border: 1px solid #e74c3c;
+}
+
+.warning {
+    background-color: #3c341e;
+    color: #f39c12;
+    border: 1px solid #f39c12;
+}
+
+/* שינוי עיצוב המודאל שיתאים ל-Dark Mode */
+.modal-container {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px 10px;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.modal-content {
+    background-color: #31363d;
+    color: var(--text-light);
+    margin: auto;
+    padding: 20px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 650px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: var(--shadow-dark);
+    position: relative;
+    border-top: 5px solid var(--primary-color);
+}
+
+.modal-content h2 {
+    color: var(--primary-color);
+    border-bottom: 1px solid #4a515c;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    font-size: 1.4em;
+}
+
+.close-btn {
+    color: #aaa;
+    float: left;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 20px;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* ---------------------------------- */
+/* עיצוב הדוח המקצועי (בתוך מודאל השיתוף) */
+/* ---------------------------------- */
+.report-section {
+    background-color: #31363d;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    border: 1px solid #4a515c;
+    font-size: 0.9em;
+}
+.report-section h4 {
+    color: #00c6ff;
+    border-bottom: 1px dashed #5d6776;
+    padding-bottom: 5px;
+    margin-top: 0;
+    font-size: 1.1em;
+}
+.highlight-target {
+    background-color: #1e2125;
+    border: 1px solid #00c6ff;
+    padding: 15px;
+}
+.report-section ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 10px 0;
+}
+.report-section ul li {
+    margin-bottom: 5px;
+    padding: 5px 0;
+}
+.report-header h3 {
+    color: var(--primary-color);
+    font-size: 1.3em;
+}
+
+/* ---------------------------------- */
+/* עיצוב ההיסטוריה */
+/* ---------------------------------- */
+.history-table th {
+    font-size: 0.85em;
+}
+.history-table td {
+    font-size: 0.8em;
+}
+
+/* ---------------------------------- */
+/* פוטר וקרדיטים (חדש) */
+/* ---------------------------------- */
+#footer-credits {
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+    padding: 15px 0;
+    margin-top: 10px;
+    border-top: 1px solid #4a515c;
+    font-size: 0.8em;
+    color: #95a5a6;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+#footer-credits p {
+    margin: 0;
+    line-height: 1.4;
+}
+.footer-links button {
+    margin: 0;
+    padding: 8px 15px;
+}
+
+/* ========================================= */
+/* הרחבות חדשות למערכת האימונים */
+/* ========================================= */
+
+/* מודול אימונים */
+.training-module {
+    border-left: 5px solid #ff6a00;
+}
+
+.training-week {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.training-day {
+    background-color: #1e2125;
+    border-radius: 12px;
+    padding: 15px;
+    border: 1px solid #4a515c;
+    font-size: 0.9em;
+}
+
+.training-day h4 {
+    color: #00c6ff;
+    margin-top: 0;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #ff6a00;
+    font-size: 1.1em;
+}
+
+.exercise-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 10px 0;
+}
+
+.exercise-list li {
+    padding: 6px 0;
+    border-bottom: 1px solid #31363d;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9em;
+}
+
+.exercise-list li:last-child {
+    border-bottom: none;
+}
+
+.training-stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 20px;
+    gap: 10px;
+}
+
+.stat-box {
+    background: var(--primary-gradient);
+    padding: 12px;
+    border-radius: 10px;
+    min-width: 150px;
+    text-align: center;
+    flex: 1;
+}
+
+.stat-box h4 {
+    margin: 0 0 8px 0;
+    font-size: 0.9em;
+}
+
+.stat-box p {
+    font-size: 1.1em;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* טיפים ותזונה */
+.tips-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin-top: 15px;
+}
+
+.tip-category {
+    background-color: #1e2125;
+    border-radius: 12px;
+    padding: 15px;
+    border-top: 4px solid;
+}
+
+.tip-category.nutrition {
+    border-top-color: #2ecc71;
+}
+
+.tip-category.training {
+    border-top-color: #3498db;
+}
+
+.tip-category.recovery {
+    border-top-color: #9b59b6;
+}
+
+.tip-category h3 {
+    margin-top: 0;
+    color: #ecf0f1;
+    font-size: 1.1em;
+}
+
+.tip-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 10px 0;
+}
+
+.tip-list li {
+    padding: 8px 0;
+    border-bottom: 1px dashed #4a515c;
+    line-height: 1.5;
+    font-size: 0.9em;
+}
+
+.tip-list li:last-child {
+    border-bottom: none;
+}
+
+.tip-text {
+    background-color: rgba(46, 204, 113, 0.1);
+    border-right: 4px solid #2ecc71;
+    padding: 8px 12px;
+    border-radius: 8px;
+    margin-top: 12px;
+    font-size: 0.85em;
+}
+
+/* עיצוב גרפים */
+.chart-container {
+    background-color: #1e2125;
+    border-radius: 12px;
+    padding: 15px;
+    margin: 15px 0;
+    border: 1px solid #4a515c;
+}
+
+.progress-tracker {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin: 15px 0;
+    padding: 12px;
+    background-color: #1e2125;
+    border-radius: 12px;
+    border: 1px solid #4a515c;
+}
+
+.progress-bar {
+    flex-grow: 1;
+    height: 20px;
+    background-color: #31363d;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 10px 15px;
+    min-width: 200px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--secondary-gradient);
+    border-radius: 10px;
+    transition: width 0.5s ease;
+}
+
+/* ========================================= */
+/* תפריט ניווט צד - מותאם למובייל */
+/* ========================================= */
+
+.side-nav {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    top: auto;
+    transform: none;
+    display: flex;
+    justify-content: space-around;
+    background-color: var(--card-bg);
+    border-radius: 12px 12px 0 0;
+    padding: 10px 5px;
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.5);
+    z-index: 99;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    background-color: #31363d;
+    color: var(--text-light);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+    padding: 5px;
+}
+
+.nav-item:hover {
+    background: var(--primary-gradient);
+    transform: translateY(-5px);
+}
+
+.nav-item.active {
+    background: var(--secondary-gradient);
+}
+
+.nav-icon {
+    font-size: 1.5em;
+    margin-bottom: 3px;
+}
+
+.nav-tooltip {
+    position: absolute;
+    top: -35px;
+    right: 50%;
+    transform: translateX(50%);
+    background-color: var(--card-bg);
+    padding: 5px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+    text-align: center;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    border: 1px solid #4a515c;
+    font-size: 0.8em;
+    z-index: 100;
+}
+
+.nav-item:hover .nav-tooltip {
+    opacity: 1;
+}
+
+/* מדדי התקדמות */
+.progress-indicators {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 15px 0;
+    gap: 10px;
+}
+
+.indicator {
+    text-align: center;
+    padding: 10px;
+    min-width: 120px;
+    flex: 1;
+}
+
+.indicator-value {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #00c6ff;
+    display: block;
+}
+
+.indicator-label {
+    font-size: 0.8em;
+    color: #95a5a6;
+}
+
+/* ========================================= */
+/* עיצוב למודאלים של טיפים */
+/* ========================================= */
+
+.tip-section {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #4a515c;
+}
+
+.tip-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.tip-section h3 {
+    color: #00c6ff;
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+}
+
+.tip-section .tip-list li {
+    padding: 6px 0;
+    border-bottom: 1px dashed #4a515c;
+    line-height: 1.5;
+    font-size: 0.9em;
+}
+
+.tip-section .tip-list li:last-child {
+    border-bottom: none;
+}
+
+.tip-section .tip-list li strong {
+    color: #f1c40f;
+    display: inline-block;
+    min-width: 25px;
+    margin-left: 3px;
+}
+
+/* ========================================= */
+/* רספונסיביות למסכים גדולים */
+/* ========================================= */
+
+@media (min-width: 769px) {
+    body {
+        padding: 40px 20px;
+    }
+    
+    .card {
+        padding: 30px;
+        margin-bottom: 30px;
+    }
+    
+    h1 {
+        font-size: 2.5em;
+        margin-bottom: 30px;
+    }
+    
+    h2 {
+        font-size: 1.8em;
+        margin-bottom: 20px;
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    .form-actions {
+        gap: 15px;
+    }
+    
+    .primary-btn, .secondary-btn, .action-btn {
+        padding: 12px 25px;
+    }
+    
+    /* תפריט ניווט צד - למובייל */
+    .side-nav {
+        position: fixed;
+        right: 20px;
+        top: 50%;
+        bottom: auto;
+        left: auto;
+        transform: translateY(-50%);
+        flex-direction: column;
+        width: auto;
+        padding: 15px 10px;
+        border-radius: 12px;
+        box-shadow: var(--shadow-dark);
+    }
+    
+    .nav-item {
+        width: 50px;
+        height: 50px;
+        margin: 10px 0;
+    }
+    
+    .nav-icon {
+        font-size: 1.3em;
+        margin-bottom: 0;
+    }
+    
+    .nav-tooltip {
+        top: 50%;
+        right: 60px;
+        left: auto;
+        transform: translateY(-50%);
+    }
+    
+    .training-week {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+    }
+    
+    .tips-container {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+    
+    .modal-content {
+        padding: 30px;
+    }
+    
+    #footer-credits {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 0;
+    }
+}
+
+/* התאמות למסכים קטנים במיוחד */
+@media (max-width: 480px) {
+    body {
+        padding: 15px 10px;
+        font-size: 15px;
+    }
+    
+    .card {
+        padding: 15px;
+        border-radius: 12px;
+    }
+    
+    h1 {
+        font-size: 1.6em;
+        margin-bottom: 15px;
+    }
+    
+    h2 {
+        font-size: 1.3em;
+        margin-bottom: 12px;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+    
+    .primary-btn, .secondary-btn, .action-btn {
+        width: 100%;
+        min-width: 100%;
+    }
+    
+    .client-management .action-btn {
+        min-width: 100%;
+    }
+    
+    .macro-custom-inputs input {
+        min-width: calc(33.33% - 6px);
+    }
+    
+    #custom-gpk-container .macro-custom-inputs input {
+        min-width: calc(50% - 4px);
+    }
+    
+    .training-day {
+        padding: 12px;
+    }
+    
+    .stat-box {
+        min-width: 100%;
+    }
+    
+    .side-nav {
+        padding: 8px 3px;
+    }
+    
+    .nav-item {
+        width: 50px;
+        height: 50px;
+        padding: 3px;
+    }
+    
+    .nav-icon {
+        font-size: 1.3em;
+    }
+    
+    .nav-tooltip {
+        font-size: 0.75em;
+        top: -30px;
+        padding: 3px 6px;
+    }
+}
+
+/* התאמה למסכים בגדלים בינוניים */
+@media (min-width: 481px) and (max-width: 768px) {
+    .training-week {
+        grid-template-columns: 1fr;
+    }
+    
+    .stat-box {
+        min-width: calc(50% - 10px);
+    }
+    
+    .nav-item {
+        width: 55px;
+        height: 55px;
+    }
+}
+
+/* מניעת זום לא רצוי במובייל */
+@media (max-width: 768px) {
+    input, select, textarea {
+        font-size: 16px !important; /* מניעת זום אוטומטי באייפון */
+    }
+}
+
+/* שיפור קריאות לטבלאות במובייל */
+@media (max-width: 768px) {
+    .results-table, .macro-table, .history-table {
+        font-size: 0.85em;
+    }
+    
+    .results-table th, .macro-table th, .history-table th {
+        padding: 8px 4px;
+        font-size: 0.85em;
+    }
+    
+    .results-table td, .macro-table td, .history-table td {
+        padding: 8px 4px;
+    }
+}
+
+/* התאמה לסלקטים מרובים במודול אימונים */
+#available-equipment {
+    min-height: 100px;
+    max-height: 150px;
+}
+
+/* הסרת אנימציות שעלולות להפריע במובייל */
+@media (max-width: 768px) {
+    .primary-btn:hover,
+    .secondary-btn:hover,
+    .nav-item:hover {
+        transform: none;
+    }
+    
+    .nav-item:hover .nav-tooltip {
+        opacity: 0;
+    }
+}
+
+/* שיפור מודאלים במובייל */
+@media (max-width: 768px) {
+    .modal-content {
+        margin: 10px;
+        padding: 15px;
+        max-height: 85vh;
+    }
+    
+    .modal-content h2 {
+        font-size: 1.3em;
+        margin-bottom: 15px;
+    }
+}
+
+/* מרחב נכון לתפריט הניווט התחתון */
+body {
+    padding-bottom: 90px; /* מרחב לתפריט התחתון במובייל */
+}
+
+@media (min-width: 769px) {
+    body {
+        padding-bottom: 40px; /* חזרה לריפוד רגיל בדסקטופ */
+    }
+}

@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>מערכת מחשבון קלוריות ומאקרונוטריינטים למאמנים</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css"> 
+</head>
+<body>
+
+    <!-- תפריט ניווט צד עם טיפים -->
+    <div class="side-nav">
+        <a href="#client-section" class="nav-item active" data-section="client">
+            <span class="nav-icon">👤</span>
+            <span class="nav-tooltip">ניהול לקוחות</span>
+        </a>
+        <a href="#calculator-section" class="nav-item" data-section="calculator">
+            <span class="nav-icon">🧮</span>
+            <span class="nav-tooltip">מחשבון</span>
+        </a>
+        <a href="#training-section" class="nav-item" data-section="training">
+            <span class="nav-icon">💪</span>
+            <span class="nav-tooltip">אימונים</span>
+        </a>
+        <a href="#results" class="nav-item" data-section="results">
+            <span class="nav-icon">📊</span>
+            <span class="nav-tooltip">תוצאות</span>
+        </a>
+        <a href="#history-section" class="nav-item" data-section="history">
+            <span class="nav-icon">📅</span>
+            <span class="nav-tooltip">היסטוריה</span>
+        </a>
+        <a href="#" class="nav-item" id="nutrition-tips-btn">
+            <span class="nav-icon">🥗</span>
+            <span class="nav-tooltip">טיפים תזונה</span>
+        </a>
+        <a href="#" class="nav-item" id="training-tips-btn">
+            <span class="nav-icon">💡</span>
+            <span class="nav-tooltip">טיפים אימון</span>
+        </a>
+        <a href="#" class="nav-item" id="recovery-tips-btn">
+            <span class="nav-icon">😴</span>
+            <span class="nav-tooltip">טיפים התאוששות</span>
+        </a>
+    </div>
+
+    <div class="main-container">
+        <h1>מערכת מעקב ועזר למתאמנים</h1>
+
+        <div class="card client-management" id="client-section">
+            <h2>ניהול פרופיל לקוח</h2>
+            <div class="form-group">
+                <label for="client-name">שם לקוח:</label>
+                <input type="text" id="client-name" value="" placeholder="הזן שם לקוח חדש">
+            </div>
+            <div class="action-buttons">
+                <button id="save-profile-btn" class="action-btn primary-btn">שמור פרופיל</button>
+                <button id="load-profile-btn" class="action-btn secondary-btn">טען פרופיל</button>
+                <button id="new-client-btn" class="action-btn secondary-btn">לקוח חדש</button>
+            </div>
+            <div class="form-group hidden" id="client-list-container">
+                <select id="client-list"></select>
+            </div>
+        </div>
+
+        <!-- מודול אימונים חדש -->
+        <div class="card training-module hidden" id="training-section">
+            <h2>תכנית אימונים אישית</h2>
+            
+            <div class="form-group">
+                <label for="training-level">רמת ניסיון:</label>
+                <select id="training-level">
+                    <option value="beginner">מתחיל (עד 6 חודשים)</option>
+                    <option value="intermediate">מתקדם (6 חודשים - 2 שנים)</option>
+                    <option value="advanced">מתקדם+ (יותר מ-2 שנים)</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="training-goal">מטרת האימון:</label>
+                <select id="training-goal">
+                    <option value="fat_loss">ירידה במשקל וחיטוב</option>
+                    <option value="muscle_gain">עלייה במסת שריר</option>
+                    <option value="strength">חיזוק וכוח</option>
+                    <option value="endurance">סיבולת לב ריאה</option>
+                    <option value="maintenance">שמירה על הישגים</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="training-days">מספר ימי אימון בשבוע:</label>
+                <select id="training-days">
+                    <option value="2">2 ימים</option>
+                    <option value="3">3 ימים</option>
+                    <option value="4">4 ימים</option>
+                    <option value="5">5 ימים</option>
+                    <option value="6">6 ימים</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="available-equipment">ציוד זמין:</label>
+                <select id="available-equipment" multiple>
+                    <option value="bodyweight">משקל גוף בלבד</option>
+                    <option value="dumbbells">משקולות יד</option>
+                    <option value="barbell">מוטות ומשקולות</option>
+                    <option value="gym">חדר כושר מלא</option>
+                    <option value="cardio">ציוד אירובי</option>
+                    <option value="resistance_bands">רצועות התנגדות</option>
+                </select>
+            </div>
+            
+            <div class="form-actions">
+                <button id="generate-training-plan" class="primary-btn">צור תכנית אימונים</button>
+                <button id="view-tips" class="secondary-btn">טיפים לאימון</button>
+            </div>
+        </div>
+
+        <!-- תכנית האימונים שתגיע כאן -->
+        <div id="training-plan" class="card hidden">
+            <h2>תכנית האימונים שלך</h2>
+            
+            <div class="training-week" id="training-week-container">
+                <!-- תכנית האימונים תופיע כאן -->
+            </div>
+            
+            <div class="training-stats">
+                <div class="stat-box">
+                    <h4>סה"כ זמן אימון שבועי</h4>
+                    <p id="total-weekly-time">-- דקות</p>
+                </div>
+                <div class="stat-box">
+                    <h4>קלוריות מוערכות לשריפה</h4>
+                    <p id="estimated-calories-burned">-- קלוריות/שבוע</p>
+                </div>
+                <div class="stat-box">
+                    <h4>עצימות ממוצעת</h4>
+                    <p id="average-intensity">--</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" id="calculator-section">
+            <form id="calorie-form">
+                <div class="form-group">
+                    <label for="gender">מגדר:</label>
+                    <select id="gender" required>
+                        <option value="male">זכר</option>
+                        <option value="female">נקבה</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="weight">משקל (ק"ג):</label>
+                    <input type="number" id="weight" step="0.1" min="1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="height">גובה (ס"מ):</label>
+                    <input type="number" id="height" min="1" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="age">גיל (שנים):</label>
+                    <input type="number" id="age" min="1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="body-fat">אחוז שומן (אופציונלי):</label>
+                    <input type="number" id="body-fat" step="0.1" min="1" max="60" placeholder="להזנת Katch-McArdle">
+                </div>
+
+                <div class="form-group">
+                    <label for="activity">רמת פעילות:</label>
+                    <select id="activity" required>
+                        <option value="sedentary">ישיבתי (1.2) - משרד, מעט תנועה</option>
+                        <option value="light">קל (1.375) - אימון קל 1-3 בשבוע</option>
+                        <option value="moderate">בינוני (1.55) - אימון בינוני 3-5 בשבוע</option>
+                        <option value="high">גבוה (1.725) - אימון אינטנסיבי 6-7 בשבוע</option>
+                        <option value="extreme">קיצוני (1.9) - אימון כפול / עבודה פיזית</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="goal-type">יעד קלורי:</label>
+                    <select id="goal-type" required>
+                        <option value="deficit_light">חיטוב קל (-250 קלוריות)</option>
+                        <option value="deficit_medium">חיטוב בינוני (-500 קלוריות)</option>
+                        <option value="deficit_high">חיטוב אגרסיבי (-750 קלוריות)</option>
+                        <option value="maintenance">משקל יעד (אחזקה)</option>
+                        <option value="surplus_medium">מסה בינונית (+250 קלוריות)</option>
+                        <option value="surplus_high">מסה גבוהה (+500 קלוריות)</option>
+                        <option value="custom">הזנת יעד קלורי מדויק</option> 
+                    </select>
+                </div>
+
+                <div class="form-group hidden" id="custom-goal-container">
+                    <label for="custom-goal">יעד קלורי מדויק (סה"כ):</label>
+                    <input type="number" id="custom-goal" placeholder="הזן קלוריות יומיות">
+                </div>
+
+                <div class="form-group">
+                    <label for="macro-split">חלוקת מאקרו:</label>
+                    <select id="macro-split" required>
+                        <option value="default_p">ברירת מחדל (35% חלבון / 25% שומן / 40% פחמימה)</option>
+                        <option value="keto">קיטו / דל פחמימה (30% חלבון / 60% שומן / 10% פחמימה)</option>
+                        <option value="custom_p">הזנת אחוזים מותאמים אישית</option>
+                        <option value="custom_gpk">חלוקה מקצועית (חלבון/שומן לפי ק"ג)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group custom-macro-group hidden" id="custom-macro-container">
+                    <label>אחוזי מאקרו מותאמים אישית (סך הכל 100%):</label>
+                    <div class="macro-custom-inputs">
+                        <input type="number" id="custom-p-percent" step="1" min="1" max="100" placeholder="חלבון (%)" value="35">
+                        <input type="number" id="custom-f-percent" step="1" min="1" max="100" placeholder="שומן (%)" value="25">
+                        <input type="number" id="custom-c-percent" step="1" min="1" max="100" placeholder="פחמימה (%)" value="40">
+                    </div>
+                </div>
+
+                <div class="form-group custom-macro-group hidden" id="custom-gpk-container">
+                    <label>חלוקה מקצועית (גרם לק"ג):</label>
+                    <div class="macro-custom-inputs">
+                        <input type="number" id="custom-p-gpk" step="0.1" min="0.5" max="5" placeholder="חלבון (גרם/קג)" value="2.0">
+                        <input type="number" id="custom-f-gpk" step="0.1" min="0.3" max="2" placeholder="שומן (גרם/קג)" value="0.8">
+                    </div>
+                    <p class="explanation-text">פחמימה תחושב אוטומטית כהשלמה קלורית.</p>
+                </div>
+
+                <div id="error-message" class="message error hidden"></div>
+                <div id="warning-message" class="message warning hidden">
+                    <p id="warning-text"></p>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" id="calculate-btn" class="primary-btn">חשב קלוריות ומאקרו</button>
+                    <button type="button" id="reset-btn" class="secondary-btn">איפוס</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="results" class="card hidden">
+            <h2>תוצאות החישוב</h2>
+            
+            <div style="overflow-x: auto;">
+                <table class="results-table">
+                    <tr>
+                        <th>מדד</th>
+                        <th>חישוב Mifflin-St Jeor</th>
+                        <th id="katch-header">חישוב Katch-McArdle</th>
+                    </tr>
+                    <tr>
+                        <td>BMI</td>
+                        <td colspan="2" id="bmi-result">--</td>
+                    </tr>
+                    <tr>
+                        <td>**יעד שבועי משוער**</td>
+                        <td colspan="2" id="weekly-goal-result" class="highlight-result">--</td>
+                    </tr>
+                    <tr>
+                        <td>BMR</td>
+                        <td id="m-bmr-result">--</td>
+                        <td id="k-bmr-result">--</td>
+                    </tr>
+                    <tr>
+                        <td>TDEE (קלוריות תחזוקה)</td>
+                        <td id="m-tdee-result">--</td>
+                        <td id="k-tdee-result">--</td>
+                    </tr>
+                    <tr>
+                        <td>**יעד קלורי יומי**</td>
+                        <td id="m-result" class="highlight-result">--</td>
+                        <td id="k-result" class="highlight-result">--</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div id="bmi-recommendation" class="message hidden" style="margin-top: 15px;"></div>
+
+            <h3>חלוקת מאקרונוטריינטים מומלצת (לפי יעד קלורי)</h3>
+            <p class="explanation-text">החישוב מתבסס על יעד הקלוריות מ-Mifflin-St Jeor (או Katch-McArdle אם נבחר).</p>
+            
+            <div style="overflow-x: auto;">
+                <table class="macro-table">
+                    <tr>
+                        <th>נוסחה</th>
+                        <th>סך קלוריות</th>
+                        <th>חלבון (גרם)</th>
+                        <th>שומן (גרם)</th>
+                        <th>פחמימה (גרם)</th>
+                        <th>חלבון (%)</th>
+                        <th>שומן (%)</th>
+                        <th>פחמימה (%)</th>
+                    </tr>
+                    <tr>
+                        <td>Mifflin</td>
+                        <td id="m-result-macro">--</td>
+                        <td id="m_p_g">--</td>
+                        <td id="m_f_g">--</td>
+                        <td id="m_c_g">--</td>
+                        <td id="m_p_p">--</td>
+                        <td id="m_f_p">--</td>
+                        <td id="m_c_p">--</td>
+                    </tr>
+                    <tr id="katch-row">
+                        <td>Katch</td>
+                        <td id="k-result-macro">--</td>
+                        <td id="k_p_g">--</td>
+                        <td id="k_f_g">--</td>
+                        <td id="k_c_g">--</td>
+                        <td id="k_p_p">--</td>
+                        <td id="k_f_p">--</td>
+                        <td id="k_c_p">--</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="form-actions result-actions">
+                <button id="save-calculation-btn" class="action-btn primary-btn">שמור חישוב להיסטוריה</button>
+                <button id="generate-report-btn" class="action-btn secondary-btn">יצירת דוח מקצועי</button>
+                <button id="open-history-btn" class="action-btn secondary-btn">צפה בהיסטוריה</button>
+                <button id="add-training-plan" class="action-btn primary-btn">צור תכנית אימונים</button>
+            </div>
+        </div>
+        
+        <div id="history-section" class="card hidden">
+            <h2>היסטוריית חישובים עבור <span id="history-client-name">--</span></h2>
+            <p id="history-message" class="explanation-text">עדיין אין חישובים שמורים עבור לקוח זה.</p>
+            
+            <div style="overflow-x: auto;">
+                <table class="history-table hidden">
+                    <thead>
+                        <tr>
+                            <th>תאריך</th>
+                            <th>משקל (ק"ג)</th>
+                            <th>אחוזי שומן (%)</th>
+                            <th>TDEE (קלוריות)</th>
+                            <th>יעד קלורי (קלוריות)</th>
+                            <th>פירוט מאקרו (P/F/C)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="history-table-body">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <footer id="footer-credits">
+        <p>זכויות יוצרים-GS-BM-איננו יועץ תזונה או מחליף.יש להשתמש בשיקול רב GS-BM </p>
+        <div class="footer-links">
+            <button id="open-about-modal-btn" class="action-btn secondary-btn small-btn">אודות ונוסחאות</button>
+        </div>
+    </footer>
+
+    <!-- מודאל אודות (עדיין קיים) -->
+    <div id="about-modal-container" class="modal-container hidden">
+        <div class="modal-content">
+            <span class="close-btn" id="about-close-btn">&times;</span>
+            <div id="about-content"></div>
+            <div class="action-buttons" style="margin-top: 15px;">
+                <button id="activity-info-btn" class="action-btn primary-btn">צפה במקדמי פעילות</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- מודאל מקדמי פעילות -->
+    <div id="modal-container" class="modal-container hidden">
+        <div class="modal-content">
+            <span class="close-btn" id="activity-close-btn">&times;</span>
+            <div id="activity-factors">
+                <h2>מקדמי פעילות (Activity Multipliers)</h2>
+                <p>להלן מקדמי הפעילות המשמשים לחישוב ה-TDEE:</p>
+                <ul style="padding-right: 20px; margin: 15px 0;">
+                    <li style="margin-bottom: 10px;">**ישיבתי (Sedentary):** 1.2</li>
+                    <li style="margin-bottom: 10px;">**קל (Light):** 1.375</li>
+                    <li style="margin-bottom: 10px;">**בינוני (Moderate):** 1.55</li>
+                    <li style="margin-bottom: 10px;">**גבוה (High):** 1.725</li>
+                    <li style="margin-bottom: 10px;">**קיצוני (Extreme):** 1.9</li>
+                </ul>
+                <p class="explanation-text">כמאמן, אתה יכול לבחור מקדם קרוב יותר למציאות אם אתה חושב שהלקוח ממעיט או מגזים ברמת הפעילות שלו.</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- מודאל דוחות -->
+    <div id="share-modal-container" class="modal-container hidden">
+        <div class="modal-content">
+            <span class="close-btn" id="share-close-btn">&times;</span>
+            <h2>דוח תזונה מקצועי</h2>
+            <div id="report-output">
+            </div>
+            <div class="form-actions" style="margin-top: 15px;">
+                <button id="print-report-btn" class="action-btn primary-btn">הדפסת דוח (PDF)</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- מודאל טיפים תזונה -->
+    <div id="nutrition-tips-modal" class="modal-container hidden">
+        <div class="modal-content">
+            <span class="close-btn" id="nutrition-close-btn">&times;</span>
+            <h2>🥗 טיפים תזונתיים מקצועיים</h2>
+            <div class="tips-container">
+                <div class="tip-section">
+                    <h3>תזמון תזונתי (Nutrient Timing)</h3>
+                    <ul class="tip-list">
+                        <li>✅ <strong>לפני אימון (2-3 שעות):</strong> פחמימות מורכבות + חלבון קל</li>
+                        <li>⚡ <strong>לפני אימון (30-60 דקות):</strong> פחמימה פשוטה קלה לעיכול</li>
+                        <li>💪 <strong>במהלך אימון (מעל שעה):</strong> משקה איזוטוני או ג'ל אנרגיה</li>
+                        <li>🔄 <strong>אחרי אימון (תוך 30-45 דקות):</strong> חלבון מהיר + פחמימה</li>
+                    </ul>
+                </div>
+                
+                <div class="tip-section">
+                    <h3>נוסחאות מפתח למאמנים</h3>
+                    <ul class="tip-list">
+                        <li>📏 <strong>חלבון למסת שריר:</strong> משקל (ק"ג) × (1.6 עד 2.2) = גרם חלבון יומי</li>
+                        <li>🔥 <strong>חלבון לחיטוב:</strong> משקל (ק"ג) × (1.8 עד 2.4) = גרם חלבון יומי</li>
+                        <li>💧 <strong>נוזלים יומיים:</strong> משקל (ק"ג) × 0.03 = ליטרים ליום</li>
+                        <li>⏰ <strong>הוספה לאימון:</strong> 0.5-1 ליטר לכל שעת אימון</li>
+                    </ul>
+                </div>
+                
+                <div class="tip-section">
+                    <h3>טיפים פרקטיים</h3>
+                    <ul class="tip-list">
+                        <li>💧 שתו לפחות 8 כוסות מים ביום - התייבשות פוגעת בביצועים</li>
+                        <li>⏰ אכלו חלבון בתוך 30 דקות מתום האימון להתאוששות מיטבית</li>
+                        <li>🍽️ פרסו ארוחות חלבון לאורך היום - 20-30 גרם בכל ארוחה</li>
+                        <li>🥑 אל תדלגו על שומנים בריאים - חיוניים לייצור הורמונים</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- מודאל טיפים אימון -->
+    <div id="training-tips-modal" class="modal-container hidden">
+        <div class="modal-content">
+            <span class="close-btn" id="training-close-btn">&times;</span>
+            <h2>💪 טיפים לאימון מקצועי</h2>
+            <div class="tips-container">
+                <div class="tip-section">
+                    <h3>המלצות לפי רמת ניסיון</h3>
+                    <ul class="tip-list">
+                        <li>👶 <strong>מתחילים (עד 6 חודשים):</strong> התמקדו בצורה נכונה, משקלים קלים, 3 אימונים בשבוע</li>
+                        <li>💪 <strong>מתקדמים (6 חודשים-2 שנים):</strong> הגדלת עומס הדרגתי, 4-5 אימונים בשבוע</li>
+                        <li>🏆 <strong>מתקדמים+ (מעל 2 שנים):</strong> מחזוריות בעומס, התמחות בקבוצות שריר, 5-6 אימונים</li>
+                    </ul>
+                </div>
+                
+                <div class="tip-section">
+                    <h3>עקרונות אימון בסיסיים</h3>
+                    <ul class="tip-list">
+                        <li>🎯 <strong>עקרון העומס המתקדם:</strong> הגדילו עומס/נפח בהדרגה</li>
+                        <li>🔄 <strong>עקרון הגיוון:</strong> שנו תרגילים כל 6-8 שבועות</li>
+                        <li>⚖️ <strong>עקרון האיזון:</strong> אימון אנטגוניסטים יחד (חזה+גב, כתפיים+ידיים)</li>
+                        <li>⏱️ <strong>עקרון המנוחה:</strong> 48-72 שעות מנוחה בין אימון לאימון לאותה קבוצת שריר</li>
+                    </ul>
+                </div>
+                
+                <div class="tip-section">
+                    <h3>טיפים טכניים</h3>
+                    <ul class="tip-list">
+                        <li>📝 תעדו את האימונים - מה שנמדד ניתן לשיפור</li>
+                        <li>🔥 הקפידו על חימום לפני כל אימון ומתיחות לאחריו</li>
+                        <li>🎯 תנו עדיפות לצורה נכונה על פני משקל כבד</li>
+                        <li>👂 הקשיבו לגופכם - כאב חדש שונה מכאב שרירים נורמלי</li>
+                        <li>💤 תכננו ימי מנוחה - הגוף נבנה במנוחה, לא באימון</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- מודאל טיפים התאוששות -->
+    <div id="recovery-tips-modal" class="modal-container hidden">
+        <div class="modal-content">
+            <span class="close-btn" id="recovery-close-btn">&times;</span>
+            <h2>😴 טיפים להתאוששות מיטבית</h2>
+            <div class="tips-container">
+                <div class="tip-section">
+                    <h3>שינה והתאוששות</h3>
+                    <ul class="tip-list">
+                        <li>😴 <strong>שינה איכותית:</strong> 7-9 שעות בלילה - שינה היא ההתאוששות החשובה ביותר</li>
+                        <li>🌙 <strong>היגיינת שינה:</strong> חדר חשוך, קריר ושקט, ללא מסכים לפני השינה</li>
+                        <li>📵 <strong>דיסציפלינה דיגיטלית:</strong> כבו מסכים שעה לפני השינה</li>
+                    </ul>
+                </div>
+                
+                <div class="tip-section">
+                    <h3>טכניקות התאוששות אקטיביות</h3>
+                    <ul class="tip-list">
+                        <li>🧘 <strong>מתיחות יומיומיות:</strong> 10-15 דקות מתיחות לאחר אימון</li>
+                        <li>🎽 <strong>רולר עיסוי (פום רולר):</strong> לאחר אימונים אינטנסיביים</li>
+                        <li>🚶 <strong>מנוחה פעילה:</strong> הליכה קלה, יוגה, מתיחות בימי מנוחה</li>
+                        <li>🛁 <strong>אמבטיות קרח/חמות:</strong> לסירוגין להפחתת דלקתיות</li>
+                    </ul>
+                </div>
+                
+                <div class="tip-section">
+                    <h3>ניהול מתחים ומניעה</h3>
+                    <ul class="tip-list">
+                        <li>🧘 <strong>מדיטציה ונשימות:</strong> 10 דקות ביום להפחתת הורמוני סטרס</li>
+                        <li>📅 <strong>תזמון חכם:</strong> תכננו אימונים קשים לימים אנרגטיים</li>
+                        <li>🎯 <strong>מעקב סימנים:</strong> עייפות כרונית, חוסר מוטיבציה, ירידה בביצועים = צורך במנוחה</li>
+                        <li>🍎 <strong>תזונה להתאוששות:</strong> פחמימות אחרי אימון, חלבון איכותי, נוגדי חמצון</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <script src="script.js"></script>
+    <script>
+        // טעינת תוכן about.html לתוך המודאל
+        fetch('about.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('about-content').innerHTML = data;
+            })
+            .catch(error => {
+                console.error('Error loading about.html:', error);
+                document.getElementById('about-content').innerHTML = '<p>לא ניתן לטעון את תוכן האודות.</p>';
+            });
+    </script>
+</body>
+</html>
